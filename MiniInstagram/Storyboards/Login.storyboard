@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="9A4-Rd-jqG">
             <objects>
-                <viewController id="7xP-vm-xMd" sceneMemberID="viewController">
+                <viewController id="7xP-vm-xMd" customClass="LoginViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ziJ-Vj-NRZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,12 +35,19 @@
                                 <rect key="frame" x="48" y="322" width="280" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="loginButtonClicked:" destination="7xP-vm-xMd" eventType="touchUpInside" id="SBJ-eN-fsR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="gEe-nX-5MB"/>
                     </view>
                     <navigationItem key="navigationItem" id="awF-pM-y6k"/>
+                    <connections>
+                        <outlet property="passwordField" destination="O43-pi-g5Y" id="7SN-mF-tDg"/>
+                        <outlet property="userNameField" destination="e3I-qU-WSx" id="MWR-ka-BeL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Geq-hv-bvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
