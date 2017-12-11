@@ -28,7 +28,6 @@ class LoginViewController: OAuthViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let _ = internalWebViewController.webView
-        doOAuthInstagram()
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,9 +44,7 @@ class LoginViewController: OAuthViewController {
         return internalWebViewController
     }
     
-    // MARK: Instagram
-    func doOAuthInstagram(){
-        
+    private func createAuthorizeRequest() -> OAuth2Swift {
         let oauthswift = OAuth2Swift(
             consumerKey:    "e2728b29aa6345299785d2eebd1c9f27",
             consumerSecret: "ed8b307cc31b45d892e2263280225356",
@@ -57,11 +54,18 @@ class LoginViewController: OAuthViewController {
             // accessTokenUrl: "https://api.instagram.com/oauth/access_token",
             // responseType:   "code"
         )
+        oauthswift.authorizeURLHandler = getURLHandler()
+
+        self.oauthswift = oauthswift
+        return oauthswift
+    }
+    
+    // MARK: Instagram
+    func doOAuthInstagram(){
+        let oauthswift = createAuthorizeRequest()
         
         let state = generateState(withLength: 20)
-        self.oauthswift = oauthswift
         
-        oauthswift.authorizeURLHandler = getURLHandler()
         let _ = oauthswift.authorize(
             withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+comments", state:state,
             success: {[unowned self] credential, response, parameters in
@@ -72,6 +76,7 @@ class LoginViewController: OAuthViewController {
                 print("parameters = \(String(describing: parameters))")
         },
             failure: { error in
+                
                 print(error.description)
         })
     }
@@ -79,7 +84,9 @@ class LoginViewController: OAuthViewController {
 //    https://api.instagram.com/v1/users/self/?access_token=ACCESS-TOKEN
     
     func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
-        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
+        let url :String = "https://api.instagram.com/v1/users/self/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c32"
+
+//        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
         let parameters :Dictionary = Dictionary<String, AnyObject>()
         let _ = oauthswift.client.get(
             url, parameters: parameters,
@@ -88,6 +95,15 @@ class LoginViewController: OAuthViewController {
                 print("jsonDict UserInfo= \(jsonDict as Any)")
         },
             failure: { error in
+                if oauthswift.client.credential.isTokenExpired() {
+                    oauthswift.startAuthorizedRequest("https://api.instagram.com/oauth/authorize", method: OAuthSwiftHTTPRequest.Method.GET, parameters: parameters, success: { (resoponse) in
+                        print("response = \(String(describing: resoponse))")
+                    }, failure: { (error) in
+                        print("error in renewing token = \(String(describing: error))")
+
+                    })
+                }
+//               doOAuthInstagram()
                 print(error)
         }
         )
@@ -108,6 +124,7 @@ class LoginViewController: OAuthViewController {
     }
 
     @IBAction func loginButtonClicked(_ sender: Any) {
+        doOAuthInstagram()
     }
 }
 
