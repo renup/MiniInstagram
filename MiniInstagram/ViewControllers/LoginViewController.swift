@@ -8,11 +8,13 @@
 
 import UIKit
 import OAuthSwift
+import Alamofire
 
 class LoginViewController: OAuthViewController {
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    
+    var oauthswift: OAuthSwift?
+
     lazy var internalWebViewController: WebViewController = {
         let controller = WebViewController()
         controller.view = UIView(frame: UIScreen.main.bounds)
@@ -24,6 +26,9 @@ class LoginViewController: OAuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let _ = internalWebViewController.webView
+        doOAuthInstagram()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,23 +43,81 @@ class LoginViewController: OAuthViewController {
             self.addChildViewController(internalWebViewController)
         }
         return internalWebViewController
-}
+    }
+    
+    // MARK: Instagram
+    func doOAuthInstagram(){
+        
+        let oauthswift = OAuth2Swift(
+            consumerKey:    "e2728b29aa6345299785d2eebd1c9f27",
+            consumerSecret: "ed8b307cc31b45d892e2263280225356",
+            authorizeUrl:   "https://api.instagram.com/oauth/authorize",
+            responseType:   "token"
+            // or
+            // accessTokenUrl: "https://api.instagram.com/oauth/access_token",
+            // responseType:   "code"
+        )
+        
+        let state = generateState(withLength: 20)
+        self.oauthswift = oauthswift
+        
+        oauthswift.authorizeURLHandler = getURLHandler()
+        let _ = oauthswift.authorize(
+            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+comments", state:state,
+            success: {[unowned self] credential, response, parameters in
+                //self.testInstagram(oauthswift)
+                self.getUserInfoInstagram(oauthswift)
+                print("response = \(String(describing: response))")
+                print("credential = \(String(describing: credential))")
+                print("parameters = \(String(describing: parameters))")
+        },
+            failure: { error in
+                print(error.description)
+        })
+    }
+    
+//    https://api.instagram.com/v1/users/self/?access_token=ACCESS-TOKEN
+    
+    func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
+        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
+        let parameters :Dictionary = Dictionary<String, AnyObject>()
+        let _ = oauthswift.client.get(
+            url, parameters: parameters,
+            success: { response in
+                let jsonDict = try? response.jsonObject()
+                print("jsonDict UserInfo= \(jsonDict as Any)")
+        },
+            failure: { error in
+                print(error)
+        }
+        )
+    }
+    
+    func testInstagram(_ oauthswift: OAuth2Swift) {
+        let url :String = "https://api.instagram.com/v1/users/6696627282/?access_token=\(oauthswift.client.credential.oauthToken)"
+        let parameters :Dictionary = Dictionary<String, AnyObject>()
+        let _ = oauthswift.client.get(
+            url, parameters: parameters,
+            success: { response in
+                let jsonDict = try? response.jsonObject()
+                print("jsonDict = \(jsonDict as Any)")
+        },
+            failure: { error in
+                print(error)
+        })
+    }
 
     @IBAction func loginButtonClicked(_ sender: Any) {
     }
 }
 
 extension LoginViewController: OAuthWebViewControllerDelegate {
-    
     func oauthWebViewControllerDidPresent() {}
     func oauthWebViewControllerDidDismiss() {}
     func oauthWebViewControllerWillAppear() {}
     func oauthWebViewControllerDidAppear() {}
     func oauthWebViewControllerWillDisappear() {}
-    func oauthWebViewControllerDidDisappear() {
-        // Ensure all listeners are removed if presented web view close
-//        oauthswift?.cancel()
-    }
+    func oauthWebViewControllerDidDisappear() {}
 }
 
 
