@@ -67,7 +67,7 @@ class LoginViewController: OAuthViewController {
         let state = generateState(withLength: 20)
         
         let _ = oauthswift.authorize(
-            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+comments", state:state,
+            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic", state:state,
             success: {[unowned self] credential, response, parameters in
                 //self.testInstagram(oauthswift)
                 self.getUserInfoInstagram(oauthswift)
@@ -100,10 +100,8 @@ class LoginViewController: OAuthViewController {
                         print("response = \(String(describing: resoponse))")
                     }, failure: { (error) in
                         print("error in renewing token = \(String(describing: error))")
-
                     })
                 }
-//               doOAuthInstagram()
                 print(error)
         }
         )

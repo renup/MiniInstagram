@@ -6,7 +6,8 @@ target 'MiniInstagram' do
   use_frameworks!
 
 	pod 'OAuthSwift'
-	pod ‘Alamofire’
+	pod 'Alamofire'
+    pod 'KeychainSwift'
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
