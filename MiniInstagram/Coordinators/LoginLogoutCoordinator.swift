@@ -133,11 +133,9 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
         })
     }
     
-    
     func loginLogoutButtonTapped() {
         doOAuthInstagram()
     }
-    
 }
 
 extension LoginLogoutCoordinator: OAuthWebViewControllerDelegate {

@@ -12,6 +12,8 @@
 		D15326FF38DFA8593FE3E1D7 /* Pods_MiniInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6296A9ED94284EFF6386FC53 /* Pods_MiniInstagramUITests.framework */; };
 		D70562FD1FE0B6DB0065417C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */; };
 		D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */; };
+		D70563021FE0C2D80065417C /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563011FE0C2D80065417C /* MediaViewController.swift */; };
+		D70563041FE0C6010065417C /* Media.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70563031FE0C6010065417C /* Media.storyboard */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -49,6 +51,8 @@
 		BE4AFD5CA5E4567CA21E70E0 /* Pods_MiniInstagramTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiniInstagramTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogoutCoordinator.swift; sourceTree = "<group>"; };
+		D70563011FE0C2D80065417C /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
+		D70563031FE0C6010065417C /* Media.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Media.storyboard; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 			children = (
 				D7AE903A1FDD4FCF00836C2D /* Login.storyboard */,
 				D7AE90131FDD4B8F00836C2D /* LaunchScreen.storyboard */,
+				D70563031FE0C6010065417C /* Media.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -195,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				D70563001FE0BBBB0065417C /* Login Logout */,
+				D70563011FE0C2D80065417C /* MediaViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 				D7AE903B1FDD4FCF00836C2D /* Login.storyboard in Resources */,
 				D7AE90151FDD4B8F00836C2D /* LaunchScreen.storyboard in Resources */,
 				D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */,
+				D70563041FE0C6010065417C /* Media.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +517,7 @@
 				D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */,
 				D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */,
 				D70562FD1FE0B6DB0065417C /* AppCoordinator.swift in Sources */,
+				D70563021FE0C2D80065417C /* MediaViewController.swift in Sources */,
 				D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */,
 				D7AE903E1FDD518200836C2D /* WebViewController.swift in Sources */,
 			);
