@@ -10,6 +10,8 @@
 		66FA7CD76E9661267ADC8E29 /* Pods_MiniInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C213B93704D32D3BABCE8E2 /* Pods_MiniInstagram.framework */; };
 		AD3BBC082F6FC8CFB469CC8E /* Pods_MiniInstagramTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AFD5CA5E4567CA21E70E0 /* Pods_MiniInstagramTests.framework */; };
 		D15326FF38DFA8593FE3E1D7 /* Pods_MiniInstagramUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6296A9ED94284EFF6386FC53 /* Pods_MiniInstagramUITests.framework */; };
+		D70562FD1FE0B6DB0065417C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */; };
+		D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		683562A7BAB1481A5BAE4B3F /* Pods-MiniInstagramUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiniInstagramUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MiniInstagramUITests/Pods-MiniInstagramUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7C213B93704D32D3BABCE8E2 /* Pods_MiniInstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiniInstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4AFD5CA5E4567CA21E70E0 /* Pods_MiniInstagramTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MiniInstagramTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogoutCoordinator.swift; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -106,6 +110,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		D70562FB1FE0B6C20065417C /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */,
+				D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		D70563001FE0BBBB0065417C /* Login Logout */ = {
+			isa = PBXGroup;
+			children = (
+				D7AE903D1FDD518200836C2D /* WebViewController.swift */,
+				D7AE903F1FDD5EDD00836C2D /* LoginViewController.swift */,
+			);
+			path = "Login Logout";
+			sourceTree = "<group>";
+		};
 		D7AE8FFB1FDD4B8E00836C2D = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +153,7 @@
 		D7AE90061FDD4B8F00836C2D /* MiniInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				D70562FB1FE0B6C20065417C /* Coordinators */,
 				D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */,
 				D7AE903C1FDD515F00836C2D /* ViewControllers */,
 				D7AE90111FDD4B8F00836C2D /* Assets.xcassets */,
@@ -171,8 +194,7 @@
 		D7AE903C1FDD515F00836C2D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D7AE903D1FDD518200836C2D /* WebViewController.swift */,
-				D7AE903F1FDD5EDD00836C2D /* LoginViewController.swift */,
+				D70563001FE0BBBB0065417C /* Login Logout */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -486,6 +508,8 @@
 			files = (
 				D7AE90401FDD5EDD00836C2D /* LoginViewController.swift in Sources */,
 				D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */,
+				D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */,
+				D70562FD1FE0B6DB0065417C /* AppCoordinator.swift in Sources */,
 				D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */,
 				D7AE903E1FDD518200836C2D /* WebViewController.swift in Sources */,
 			);

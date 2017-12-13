@@ -1,20 +1,22 @@
 //
-//  LoginViewController.swift
+//  LoginLogoutCoordinator.swift
 //  MiniInstagram
 //
-//  Created by Renu Punjabi on 12/10/17.
+//  Created by Renu Punjabi on 12/12/17.
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 
 import UIKit
+import KeychainSwift
 import OAuthSwift
 import Alamofire
 
-class LoginViewController: OAuthViewController {
-    @IBOutlet weak var userNameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
+    
+    var navigationVC: UINavigationController?
     var oauthswift: OAuthSwift?
-
+    var loginLogoutVC: LoginViewController?
+    
     lazy var internalWebViewController: WebViewController = {
         let controller = WebViewController()
         controller.view = UIView(frame: UIScreen.main.bounds)
@@ -23,23 +25,25 @@ class LoginViewController: OAuthViewController {
         return controller
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        let _ = internalWebViewController.webView
+
+    init(_ navigationVC: UINavigationController) {
+        self.navigationVC = navigationVC
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func showLoginVC() {
+        let _ = internalWebViewController.webView
+
+        if let loginVC = navigationVC?.viewControllers.first as? LoginViewController {
+            loginLogoutVC = loginVC
+            loginLogoutVC?.delegate = self
+        }
     }
     
     //MARK: private methods
     // MARK: handler
     func getURLHandler() -> OAuthSwiftURLHandlerType {
         if internalWebViewController.parent == nil {
-            self.addChildViewController(internalWebViewController)
+            loginLogoutVC?.addChildViewController(internalWebViewController)
         }
         return internalWebViewController
     }
@@ -55,7 +59,7 @@ class LoginViewController: OAuthViewController {
             // responseType:   "code"
         )
         oauthswift.authorizeURLHandler = getURLHandler()
-
+        
         self.oauthswift = oauthswift
         return oauthswift
     }
@@ -71,22 +75,30 @@ class LoginViewController: OAuthViewController {
             success: {[unowned self] credential, response, parameters in
                 //self.testInstagram(oauthswift)
                 self.getUserInfoInstagram(oauthswift)
+                KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: "accessToken", withAccess: .accessibleWhenUnlocked)
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
-        },
+            },
             failure: { error in
                 
                 print(error.description)
         })
     }
     
-//    https://api.instagram.com/v1/users/self/?access_token=ACCESS-TOKEN
+    //    https://api.instagram.com/v1/users/self/?access_token=ACCESS-TOKEN
     
     func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
-        let url :String = "https://api.instagram.com/v1/users/self/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c32"
-
-//        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
+        var url = ""
+        if let token = KeychainSwift().get("accessToken") {
+            url = "https://api.instagram.com/v1/users/self/?access_token=\(token)"
+            
+        } else {
+            url = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
+        }
+        
+        //"https://api.instagram.com/v1/users/self/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c32"
+        //        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
         let parameters :Dictionary = Dictionary<String, AnyObject>()
         let _ = oauthswift.client.get(
             url, parameters: parameters,
@@ -120,13 +132,15 @@ class LoginViewController: OAuthViewController {
                 print(error)
         })
     }
-
-    @IBAction func loginButtonClicked(_ sender: Any) {
+    
+    
+    func loginLogoutButtonTapped() {
         doOAuthInstagram()
     }
+    
 }
 
-extension LoginViewController: OAuthWebViewControllerDelegate {
+extension LoginLogoutCoordinator: OAuthWebViewControllerDelegate {
     func oauthWebViewControllerDidPresent() {}
     func oauthWebViewControllerDidDismiss() {}
     func oauthWebViewControllerWillAppear() {}
@@ -134,5 +148,3 @@ extension LoginViewController: OAuthWebViewControllerDelegate {
     func oauthWebViewControllerWillDisappear() {}
     func oauthWebViewControllerDidDisappear() {}
 }
-
-
