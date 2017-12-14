@@ -31,8 +31,6 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
     }
     
     func showLoginVC() {
-        let _ = internalWebViewController.webView
-
         if let loginVC = navigationVC?.viewControllers.first as? LoginViewController {
             loginLogoutVC = loginVC
             loginLogoutVC?.delegate = self
@@ -58,6 +56,7 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
             // accessTokenUrl: "https://api.instagram.com/oauth/access_token",
             // responseType:   "code"
         )
+        let _ = internalWebViewController.webView
         oauthswift.authorizeURLHandler = getURLHandler()
         
         self.oauthswift = oauthswift

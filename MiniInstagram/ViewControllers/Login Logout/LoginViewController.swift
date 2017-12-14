@@ -14,8 +14,10 @@ protocol LoginViewControllerDelegate: class {
 }
 
 class LoginViewController: OAuthViewController {
-    @IBOutlet weak var userNameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    
     var value: LoginViewControllerDelegate?
     
     weak var delegate: LoginViewControllerDelegate? {

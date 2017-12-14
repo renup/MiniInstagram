@@ -24,11 +24,8 @@ class MediaCoordinator: NSObject {
         if let mediaVC = storyboard.instantiateViewController(withIdentifier: "MediaViewController") as? MediaViewController {
             mediaViewController = mediaVC
             mediaViewController?.delegate = self
+            navigationVC?.pushViewController(mediaVC, animated: false)
         }
-//        if let mediaVC = UIViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Media") as? MediaViewController {
-//            mediaViewController = mediaVC
-//            mediaViewController?.delegate = self
-//        }
     }
 }
 
