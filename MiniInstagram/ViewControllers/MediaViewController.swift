@@ -9,6 +9,15 @@
 import Foundation
 import UIKit
 
+protocol MediaViewControllerDelegate: class {
+    func userLikedAMedia()
+}
+
 class MediaViewController: UITableViewController {
-    
+    var value: MediaViewControllerDelegate?
+   
+    weak var delegate: MediaViewControllerDelegate? {
+        get{ return value }
+        set { value = newValue }
+    }
 }

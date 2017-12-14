@@ -1,8 +1,8 @@
 //
 //  UIViewControllerHelper.swift
-//  FoodDelivery
+//  MiniInstagram
 //
-//  Created by Renu Punjabi on 11/3/17.
+//  Created by Renu Punjabi on 12/13/17.
 //  Copyright © 2017 Renu Punjabi. All rights reserved.
 //
 

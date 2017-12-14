@@ -19,12 +19,8 @@ class LoginViewController: OAuthViewController {
     var value: LoginViewControllerDelegate?
     
     weak var delegate: LoginViewControllerDelegate? {
-        get {
-            return value
-        }
-        set {
-            value = newValue
-        }
+        get { return value }
+        set { value = newValue }
     }
     
     override func viewDidLoad() {

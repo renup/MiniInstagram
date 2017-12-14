@@ -8,10 +8,13 @@
 
 import Foundation
 import UIKit
+import KeychainSwift
 
 class AppCoordinator: NSObject {
     
     var navigationVC: UINavigationController?
+    var loginLogoutCoordinator: LoginLogoutCoordinator?
+    var mediaCoordinator: MediaCoordinator?
     
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
@@ -21,8 +24,18 @@ class AppCoordinator: NSObject {
         guard navigationVC != nil else {
             return
         }
-        let loginLogoutCoordinator = LoginLogoutCoordinator(navigationVC!)
-        loginLogoutCoordinator.showLoginVC()
+        
+        if KeychainSwift().get(Constants.accessToken) != nil {
+            let mediaCoordinatorInstance = MediaCoordinator(navigationVC!)
+            mediaCoordinator = mediaCoordinatorInstance
+            mediaCoordinatorInstance.showMediaViewController()
+        } else {
+            let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navigationVC!)
+            loginLogoutCoordinator = loginLogoutCoordinatorInstance
+            loginLogoutCoordinatorInstance.showLoginVC()
+        }
+       
     }
-    
 }
+
+

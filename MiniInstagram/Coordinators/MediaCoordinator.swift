@@ -7,3 +7,31 @@
 //
 
 import Foundation
+import OAuthSwift
+import Alamofire
+
+class MediaCoordinator: NSObject {
+    var oauthswift: OAuthSwift?
+    var navigationVC: UINavigationController?
+    var mediaViewController: MediaViewController?
+    
+    init(_ navigationVC: UINavigationController) {
+        self.navigationVC = navigationVC
+    }
+    
+    func showMediaViewController() {
+        
+        if let mediaVC = UIViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Media") as? MediaViewController {
+            mediaViewController = mediaVC
+            mediaViewController?.delegate = self
+        }
+    }
+}
+
+extension MediaCoordinator: MediaViewControllerDelegate {
+    func userLikedAMedia() {
+        
+    }
+    
+    
+}

@@ -75,7 +75,7 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
             success: {[unowned self] credential, response, parameters in
                 //self.testInstagram(oauthswift)
                 self.getUserInfoInstagram(oauthswift)
-                KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: "accessToken", withAccess: .accessibleWhenUnlocked)
+                KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
@@ -90,7 +90,7 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
     
     func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
         var url = ""
-        if let token = KeychainSwift().get("accessToken") {
+        if let token = KeychainSwift().get(Constants.accessToken) {
             url = "https://api.instagram.com/v1/users/self/?access_token=\(token)"
             
         } else {
@@ -99,6 +99,7 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
         
         //"https://api.instagram.com/v1/users/self/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c32"
         //        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
+        
         let parameters :Dictionary = Dictionary<String, AnyObject>()
         let _ = oauthswift.client.get(
             url, parameters: parameters,

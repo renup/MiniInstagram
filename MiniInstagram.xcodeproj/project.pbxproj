@@ -14,6 +14,9 @@
 		D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */; };
 		D70563021FE0C2D80065417C /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563011FE0C2D80065417C /* MediaViewController.swift */; };
 		D70563041FE0C6010065417C /* Media.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70563031FE0C6010065417C /* Media.storyboard */; };
+		D70563061FE0C8680065417C /* MediaCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563051FE0C8680065417C /* MediaCoordinator.swift */; };
+		D70563081FE0D32A0065417C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563071FE0D32A0065417C /* Constants.swift */; };
+		D705630B1FE1F2FA0065417C /* UIViewControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D705630A1FE1F2FA0065417C /* UIViewControllerHelper.swift */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -53,6 +56,9 @@
 		D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogoutCoordinator.swift; sourceTree = "<group>"; };
 		D70563011FE0C2D80065417C /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		D70563031FE0C6010065417C /* Media.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Media.storyboard; sourceTree = "<group>"; };
+		D70563051FE0C8680065417C /* MediaCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCoordinator.swift; sourceTree = "<group>"; };
+		D70563071FE0D32A0065417C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D705630A1FE1F2FA0065417C /* UIViewControllerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerHelper.swift; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 			children = (
 				D70562FC1FE0B6DB0065417C /* AppCoordinator.swift */,
 				D70562FE1FE0B8E90065417C /* LoginLogoutCoordinator.swift */,
+				D70563051FE0C8680065417C /* MediaCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -130,6 +137,14 @@
 				D7AE903F1FDD5EDD00836C2D /* LoginViewController.swift */,
 			);
 			path = "Login Logout";
+			sourceTree = "<group>";
+		};
+		D70563091FE1F2EA0065417C /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D705630A1FE1F2FA0065417C /* UIViewControllerHelper.swift */,
+			);
+			path = "Helper Classes";
 			sourceTree = "<group>";
 		};
 		D7AE8FFB1FDD4B8E00836C2D = {
@@ -157,6 +172,7 @@
 		D7AE90061FDD4B8F00836C2D /* MiniInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				D70563091FE1F2EA0065417C /* Helper Classes */,
 				D70562FB1FE0B6C20065417C /* Coordinators */,
 				D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */,
 				D7AE903C1FDD515F00836C2D /* ViewControllers */,
@@ -164,6 +180,7 @@
 				D7AE90161FDD4B8F00836C2D /* Info.plist */,
 				D7AE90391FDD4FB500836C2D /* Storyboards */,
 				D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */,
+				D70563071FE0D32A0065417C /* Constants.swift */,
 			);
 			path = MiniInstagram;
 			sourceTree = "<group>";
@@ -515,11 +532,14 @@
 			files = (
 				D7AE90401FDD5EDD00836C2D /* LoginViewController.swift in Sources */,
 				D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */,
+				D705630B1FE1F2FA0065417C /* UIViewControllerHelper.swift in Sources */,
 				D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */,
 				D70562FD1FE0B6DB0065417C /* AppCoordinator.swift in Sources */,
 				D70563021FE0C2D80065417C /* MediaViewController.swift in Sources */,
+				D70563061FE0C8680065417C /* MediaCoordinator.swift in Sources */,
 				D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */,
 				D7AE903E1FDD518200836C2D /* WebViewController.swift in Sources */,
+				D70563081FE0D32A0065417C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
