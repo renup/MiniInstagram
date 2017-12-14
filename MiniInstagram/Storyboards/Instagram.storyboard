@@ -9,50 +9,50 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Likes-->
         <scene sceneID="I8G-lq-7hq">
             <objects>
-                <viewController id="zZG-11-qgO" sceneMemberID="viewController">
+                <viewController id="zZG-11-qgO" customClass="LikesViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NsP-gF-wdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="Pbv-2C-BNe"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="CMy-gK-AFX"/>
+                    <tabBarItem key="tabBarItem" title="Likes" id="CMy-gK-AFX"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7V-cc-Lch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-220" y="904"/>
         </scene>
-        <!--Item 2-->
+        <!--Media-->
         <scene sceneID="nW6-Oz-QAB">
             <objects>
-                <viewController id="Xnc-7o-6XI" sceneMemberID="viewController">
+                <viewController id="Xnc-7o-6XI" customClass="MediaViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cQu-hS-Z6O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="wY4-cA-IZ0"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="jD1-Yt-ebd"/>
+                    <tabBarItem key="tabBarItem" title="Media" id="jD1-Yt-ebd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pce-nI-QVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="687" y="490"/>
         </scene>
-        <!--Item 1-->
+        <!--Settings-->
         <scene sceneID="NsE-xL-Fn4">
             <objects>
-                <viewController id="wta-3y-H09" sceneMemberID="viewController">
+                <viewController id="wta-3y-H09" customClass="LoginViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Kj-nK-0eO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="K1h-PJ-ofY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="tBw-of-c23"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="tBw-of-c23"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pil-Pr-4H9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
