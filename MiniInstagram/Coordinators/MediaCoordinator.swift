@@ -20,11 +20,12 @@ class MediaCoordinator: NSObject {
     }
     
     func showMediaViewController() {
-        let storyboard = UIStoryboard.init(name: "Media", bundle: nil)
-        if let mediaVC = storyboard.instantiateViewController(withIdentifier: "MediaViewController") as? MediaViewController {
-            mediaViewController = mediaVC
-            mediaViewController?.delegate = self
-            navigationVC?.pushViewController(mediaVC, animated: false)
+        if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
+            tabVC.selectedIndex = 1
+            if let mediaVC = tabVC.selectedViewController as? MediaViewController {
+                mediaViewController = mediaVC
+                mediaViewController?.delegate = self
+            }
         }
     }
 }

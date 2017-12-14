@@ -13,7 +13,7 @@ protocol MediaViewControllerDelegate: class {
     func userLikedAMedia()
 }
 
-class MediaViewController: UITableViewController {
+class MediaViewController: UIViewController {
     var value: MediaViewControllerDelegate?
    
     weak var delegate: MediaViewControllerDelegate? {
