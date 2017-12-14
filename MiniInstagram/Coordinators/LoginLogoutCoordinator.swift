@@ -31,9 +31,12 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
     }
     
     func showLoginVC() {
-        if let loginVC = navigationVC?.viewControllers.first as? LoginViewController {
-            loginLogoutVC = loginVC
-            loginLogoutVC?.delegate = self
+        if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
+            tabVC.selectedIndex = 0
+            if let loginVC = tabVC.selectedViewController as? LoginViewController {
+                loginLogoutVC = loginVC
+                loginLogoutVC?.delegate = self
+            }
         }
     }
     

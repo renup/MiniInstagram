@@ -21,16 +21,16 @@ class AppCoordinator: NSObject {
     }
     
     func start() {
-        guard navigationVC != nil else {
+        guard let navVC = navigationVC else {
             return
         }
         
         if KeychainSwift().get(Constants.accessToken) != nil {
-            let mediaCoordinatorInstance = MediaCoordinator(navigationVC!)
+            let mediaCoordinatorInstance = MediaCoordinator(navVC)
             mediaCoordinator = mediaCoordinatorInstance
             mediaCoordinatorInstance.showMediaViewController()
         } else {
-            let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navigationVC!)
+            let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navVC)
             loginLogoutCoordinator = loginLogoutCoordinatorInstance
             loginLogoutCoordinatorInstance.showLoginVC()
         }
