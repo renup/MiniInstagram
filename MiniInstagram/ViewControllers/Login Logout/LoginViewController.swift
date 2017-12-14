@@ -15,9 +15,8 @@ protocol LoginViewControllerDelegate: class {
 
 class LoginViewController: OAuthViewController {
     
-    
+    @IBOutlet weak var loginLogoutButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
-    
     var value: LoginViewControllerDelegate?
     
     weak var delegate: LoginViewControllerDelegate? {
@@ -35,9 +34,10 @@ class LoginViewController: OAuthViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func loginButtonClicked(_ sender: Any) {
+    @IBAction func loginLogoutButtonClicked(_ sender: Any) {
         delegate?.loginLogoutButtonTapped()
     }
+   
 }
 
 
