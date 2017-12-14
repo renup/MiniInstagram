@@ -20,11 +20,15 @@ class MediaCoordinator: NSObject {
     }
     
     func showMediaViewController() {
-        
-        if let mediaVC = UIViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Media") as? MediaViewController {
+        let storyboard = UIStoryboard.init(name: "Media", bundle: nil)
+        if let mediaVC = storyboard.instantiateViewController(withIdentifier: "MediaViewController") as? MediaViewController {
             mediaViewController = mediaVC
             mediaViewController?.delegate = self
         }
+//        if let mediaVC = UIViewController.instantiateUsingDefaultStoryboardIdWithStoryboardName(name: "Media") as? MediaViewController {
+//            mediaViewController = mediaVC
+//            mediaViewController?.delegate = self
+//        }
     }
 }
 

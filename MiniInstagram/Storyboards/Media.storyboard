@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Media View Controller-->
         <scene sceneID="a2t-wp-YYp">
             <objects>
-                <tableViewController id="lHp-Ah-YC0" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MediaViewController" id="lHp-Ah-YC0" customClass="MediaViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="300" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SpH-fT-mHF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
