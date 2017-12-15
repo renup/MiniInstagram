@@ -19,7 +19,16 @@ class MediaCoordinator: NSObject {
         self.navigationVC = navigationVC
     }
     
+    func getMedia() {
+        DispatchQueue.global().async {
+            APIProcessor.shared.fetchMedia(completionHandler: { (response) in
+                print("Printing json response in mediaCoordinator : \(String(describing: response))")
+            })
+        }
+    }
+    
     func showMediaViewController() {
+        getMedia()
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
             tabVC.selectedIndex = 1
             if let mediaVC = tabVC.selectedViewController as? MediaViewController {

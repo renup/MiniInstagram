@@ -10,13 +10,27 @@ import Foundation
 import Alamofire
 import KeychainSwift
 
+typealias completionHandler = ((_ response: Any?) -> Void)
+
 
 class APIProcessor: NSObject {
+    static let shared: APIProcessor = APIProcessor()
+
     let baseURLString = "https://api.instagram.com/v1/"
     let accessToken = KeychainSwift().get(Constants.accessToken)
     
-    func fetchMedia() {
-        let finalURLString = baseURLString + "users/self/?access_token=" + "\(String(describing: accessToken))"
-//        Alamofire.
-    }
+    func fetchMedia(completionHandler: @escaping completionHandler) {
+        if let token = accessToken {
+            let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
+            if let url = URL(string: finalURLString) {
+                Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
+                    
+                    print("media response: \(response)")
+                    completionHandler(response.result.value)
+                })
+                
+            }
+        }
+        }
+        
 }
