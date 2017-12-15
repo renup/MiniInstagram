@@ -8,7 +8,15 @@
 
 import Foundation
 import Alamofire
+import KeychainSwift
+
 
 class APIProcessor: NSObject {
+    let baseURLString = "https://api.instagram.com/v1/"
+    let accessToken = KeychainSwift().get(Constants.accessToken)
     
+    func fetchMedia() {
+        let finalURLString = baseURLString + "users/self/?access_token=" + "\(String(describing: accessToken))"
+//        Alamofire.
+    }
 }
