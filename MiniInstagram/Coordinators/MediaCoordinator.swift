@@ -10,10 +10,19 @@ import Foundation
 import OAuthSwift
 import Alamofire
 
+protocol MediaCoordinatorDelegate: class {
+    func needToRefreshAuthorizingWithInstagram()
+}
+
 class MediaCoordinator: NSObject {
     var oauthswift: OAuthSwift?
     var navigationVC: UINavigationController?
     var mediaViewController: MediaViewController?
+    var value: MediaCoordinatorDelegate?
+    weak var delegate: MediaCoordinatorDelegate? {
+        set { value = newValue }
+        get { return value }
+    }
     
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
@@ -29,10 +38,37 @@ class MediaCoordinator: NSObject {
     
     func getLikes() {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchUserLikes(completionHandler: { (response) in
+            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
+                
+                if let jsonResponseDict = response as? NSDictionary {
+                    if let valueDict = jsonResponseDict["meta"] as? NSDictionary {
+                        if let errorType = valueDict["error_type"] as? String {
+                            if errorType == " OAuthPermissionsException" || errorType == "OAuthParameterException"  {
+                                //Just renew the auth token since it is expired
+                                self.promptUserToReAuthorizeWithInstagram()
+                                print("finally where i want ot be")
+                            }
+                        }
+                    }
+                    
+                }
+                
+                
+                
+                
+                
                 print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
             })
         }
+    }
+    
+    //In case the access_token is missing or if the permission to access media is invalid, we need to prompt user to reauthorize
+    private func promptUserToReAuthorizeWithInstagram() {
+       let alert = UIAlertController(title: "Authorization Required", message: "Please Re-Authorize with Instagram", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            self.delegate?.needToRefreshAuthorizingWithInstagram()
+        }))
+        mediaViewController?.present(alert, animated: true, completion: nil)
     }
     
     func showMediaViewController() {

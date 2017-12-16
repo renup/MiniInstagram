@@ -72,21 +72,7 @@ class APIProcessor: NSObject {
 //            completionHandler(error, error)
 //        })
         
-            Alamofire.request(url).responseJSON(completionHandler:{[unowned self] (response) in
-                
-                if let jsonResponseDict = response.result.value as? NSDictionary {
-                    if let valueDict = jsonResponseDict["meta"] as? NSDictionary {
-                        if let errorType = valueDict["error_type"] as? String {
-                            if errorType == " OAuthPermissionsException" || errorType == "OAuthParameterException"  {
-                                //Just renew the auth token since it is expired
-                                self.refreshAccessToken()
-                                print("finally where i want ot be")
-                            }
-                        }
-                    }
-                    
-                }
-                
+            Alamofire.request(url).responseJSON(completionHandler:{(response) in
                 
                 switch response.result {
                 case .success:
@@ -94,7 +80,6 @@ class APIProcessor: NSObject {
                 case .failure(let error):
                     print("error in likes call - \(error)")
                 }
-
                 completionHandler(response.result.value)
             })
         }
@@ -146,22 +131,25 @@ extension APIProcessor {
                 let jsonDict = try? response.jsonObject()
                 print("jsonDict UserInfo= \(jsonDict as Any)")
         },
-            failure: {[unowned self] error in
-                self.refreshAccessToken()
+            failure: { error in
                 print(error)
         }
         )
     }
     
-    func refreshAccessToken() {
-        if oauthswift.client.credential.isTokenExpired() {
-            oauthswift.startAuthorizedRequest("https://api.instagram.com/oauth/authorize", method: OAuthSwiftHTTPRequest.Method.GET, parameters: [:], success: { (resoponse) in
-                print("response = \(String(describing: resoponse))")
-            }, failure: { (error) in
-                print("error in renewing token = \(String(describing: error))")
-            })
-        }
-    }
+//    func refreshAccessToken() {
+//
+//       // if oauthswift.client.credential.isTokenExpired() {
+//            oauthswift.startAuthorizedRequest("https://api.instagram.com/oauth/authorize", method: OAuthSwiftHTTPRequest.Method.GET, parameters: [:], success: {[unowned self] (response) in
+//                print("token = \(response.re)")
+//                KeychainSwift().set("\(self.oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
+//
+//                print("response = \(String(describing: response))")
+//            }, failure: { (error) in
+//                print("error in renewing token = \(String(describing: error))")
+//            })
+//       // }
+//    }
     
     
 }

@@ -24,18 +24,33 @@ class AppCoordinator: NSObject {
         guard let navVC = navigationVC else {
             return
         }
-        
         if KeychainSwift().get(Constants.accessToken) != nil {
-            let mediaCoordinatorInstance = MediaCoordinator(navVC)
-            mediaCoordinator = mediaCoordinatorInstance
-            mediaCoordinatorInstance.showMediaViewController()
+            initiateMediaCoordinator(navVC)
         } else {
-            let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navVC)
-            loginLogoutCoordinator = loginLogoutCoordinatorInstance
-            loginLogoutCoordinatorInstance.showLoginVC()
+            initiateLoginCoordinator(navVC)
         }
-       
     }
+    
+    fileprivate func initiateMediaCoordinator(_ navVC: UINavigationController) {
+        let mediaCoordinatorInstance = MediaCoordinator(navVC)
+        mediaCoordinator = mediaCoordinatorInstance
+        mediaCoordinator?.delegate = self
+        mediaCoordinatorInstance.showMediaViewController()
+    }
+    
+    fileprivate func initiateLoginCoordinator(_ navVC: UINavigationController) {
+        let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navVC)
+        loginLogoutCoordinator = loginLogoutCoordinatorInstance
+        loginLogoutCoordinatorInstance.showLoginVC()
+    }
+}
+
+extension AppCoordinator: MediaCoordinatorDelegate {
+    func needToRefreshAuthorizingWithInstagram() {
+        initiateLoginCoordinator(navigationVC!)
+    }
+    
+    
 }
 
 
