@@ -11,7 +11,7 @@ import UIKit
 import KeychainSwift
 
 class AppCoordinator: NSObject {
-    
+
     var navigationVC: UINavigationController?
     var loginLogoutCoordinator: LoginLogoutCoordinator?
     var mediaCoordinator: MediaCoordinator?
