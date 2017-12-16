@@ -8,6 +8,7 @@ target 'MiniInstagram' do
 	pod 'SwiftyJSON'
 	pod 'OAuthSwift'
 	pod 'Alamofire'
+	pod 'AlamofireImage'
     pod 'KeychainSwift'
 
   target 'MiniInstagramTests' do
