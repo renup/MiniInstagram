@@ -8,7 +8,7 @@
 
 import Foundation
 import OAuthSwift
-//import Alamofire
+import SwiftyJSON
 
 protocol MediaCoordinatorDelegate: class {
     func needToRefreshAuthorizingWithInstagram()
@@ -40,22 +40,12 @@ class MediaCoordinator: NSObject {
         DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
                 
-                if let jsonResponseDict = response as? NSDictionary {
-                    if let valueDict = jsonResponseDict["meta"] as? NSDictionary {
-                        if let errorType = valueDict["error_type"] as? String {
-                            if errorType == " OAuthPermissionsException" || errorType == "OAuthParameterException"  {
-                                //Just renew the auth token since it is expired
-                                self.promptUserToReAuthorizeWithInstagram()
-                                print("finally where i want ot be")
-                            }
-                        }
-                    }
-                    
+                let json = JSON(response!)
+                let errorType = json["meta"]["error_type"]
+                if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
+                    //Just renew the auth token since it is expired
+                    self.promptUserToReAuthorizeWithInstagram()
                 }
-                
-                
-                
-                
                 
                 print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
             })

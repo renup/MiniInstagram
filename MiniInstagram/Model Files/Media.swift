@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct Media {
     var userName: String?
-    var imageArray: [String]?
+    var imageURLString: String?
+    
+    init(jsonOject: NSDictionary) {
+        
+    }
 }

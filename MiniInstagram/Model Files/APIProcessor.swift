@@ -30,6 +30,8 @@ class APIProcessor: NSObject {
     let baseURLString = "https://api.instagram.com/v1/"
     let accessToken = KeychainSwift().get(Constants.accessToken)
     
+    //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.cb1c255fe1ff4a65b8c1acde5d210240
+    
     //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c31
     func fetchMedia(completionHandler: @escaping completionHandler) {
         if let token = accessToken {
@@ -57,20 +59,15 @@ class APIProcessor: NSObject {
             return
         }
         
-        //https://api.instagram.com/v1/users/self/media/liked?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c31
-        let finalURLString = baseURLString + "users/self/media/liked?" + "\(String(describing: token))"
-        #if debug
-        print("finalURLString = \(finalURLString)")
-        #endif
+        //https://api.instagram.com/v1/users/self/media/liked?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
+        
+        let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(String(describing: token))"
+//        #if debug
+            print("finalURLString = \(finalURLString)")
+            print("token = \(String(describing: token))")
+//        #endif
 
         if let url = URL(string: finalURLString) {
-        
-//        let _ = APIProcessor.shared.oauthswift.client.get(finalURLString, success: { (response) in
-//            completionHandler(response, nil)
-//        }, failure: { (error) in
-//            print("error: \(error.localizedDescription)")
-//            completionHandler(error, error)
-//        })
         
             Alamofire.request(url).responseJSON(completionHandler:{(response) in
                 
@@ -83,13 +80,14 @@ class APIProcessor: NSObject {
                 completionHandler(response.result.value)
             })
         }
-    
-}
-    //}
+    }
 }
 
 
 extension APIProcessor {
+    
+    //https://www.instagram.com/oauth/authorize/?client_id=e2728b29aa6345299785d2eebd1c9f27&redirect_uri=https://www.23andme.com/&response_type=token&scope=likes+basic+public_content&state=R1prYujhoHphUIlnSy2h
+    
     // MARK: Instagram
     func doOAuthInstagram(_ oauthswift: OAuth2Swift){
         let state = generateState(withLength: 20)
