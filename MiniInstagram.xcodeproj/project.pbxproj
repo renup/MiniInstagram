@@ -20,6 +20,7 @@
 		D70563121FE320B10065417C /* LikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563111FE320B10065417C /* LikesViewController.swift */; };
 		D70563141FE321F60065417C /* InstagramTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70563131FE321F60065417C /* InstagramTabBarController.swift */; };
 		D70DAE831FE334DD00243783 /* APIProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DAE821FE334DD00243783 /* APIProcessor.swift */; };
+		D70DAE851FE3787000243783 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70DAE841FE3787000243783 /* Media.swift */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		D70563111FE320B10065417C /* LikesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesViewController.swift; sourceTree = "<group>"; };
 		D70563131FE321F60065417C /* InstagramTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramTabBarController.swift; sourceTree = "<group>"; };
 		D70DAE821FE334DD00243783 /* APIProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProcessor.swift; sourceTree = "<group>"; };
+		D70DAE841FE3787000243783 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				D70DAE821FE334DD00243783 /* APIProcessor.swift */,
+				D70DAE841FE3787000243783 /* Media.swift */,
 			);
 			path = "Model Files";
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 			files = (
 				D70563121FE320B10065417C /* LikesViewController.swift in Sources */,
 				D7AE90401FDD5EDD00836C2D /* LoginViewController.swift in Sources */,
+				D70DAE851FE3787000243783 /* Media.swift in Sources */,
 				D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */,
 				D705630B1FE1F2FA0065417C /* UIViewControllerHelper.swift in Sources */,
 				D70562FF1FE0B8E90065417C /* LoginLogoutCoordinator.swift in Sources */,

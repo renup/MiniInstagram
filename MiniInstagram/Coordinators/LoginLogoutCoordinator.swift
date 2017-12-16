@@ -73,7 +73,7 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
         let state = generateState(withLength: 20)
         
         let _ = oauthswift.authorize(
-            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic", state:state,
+            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
             success: {[unowned self] credential, response, parameters in
                 //self.testInstagram(oauthswift)
                 self.getUserInfoInstagram(oauthswift)
