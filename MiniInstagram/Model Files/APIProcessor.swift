@@ -37,21 +37,13 @@ class APIProcessor: NSObject {
         if let token = accessToken {
             let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
             print("finalURLString = \(finalURLString)")
-//            if let url = URL(string: finalURLString) {
-            
-//               let _ = APIProcessor.shared.oauthswift.client.get(finalURLString, success: { (response) in
-//                    completionHandler(response, nil)
-//                }, failure: { (error) in
-//                    completionHandler(nil, error)
-//                })
-            
-//                Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
-//
-////                    print("media response: \(response)")
-//                    completionHandler(response.result.value)
-//                })
+            if let url = URL(string: finalURLString) {
+                Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
+//                    print("media response: \(response)")
+                    completionHandler(response.result.value)
+                })
             }
-        //}
+        }
     }
     
     func fetchUserLikes(completionHandler: @escaping completionHandler) {
@@ -70,13 +62,6 @@ class APIProcessor: NSObject {
         if let url = URL(string: finalURLString) {
         
             Alamofire.request(url).responseJSON(completionHandler:{(response) in
-                
-                switch response.result {
-                case .success:
-                    print("Validation Successful")
-                case .failure(let error):
-                    print("error in likes call - \(error)")
-                }
                 completionHandler(response.result.value)
             })
         }
