@@ -9,6 +9,19 @@
 import Foundation
 import UIKit
 
+protocol InstagramTabBarControllerDelegate: class {
+    func userChangedTab(item: UITabBarItem)
+}
+
 class InstagramTabBarController: UITabBarController {
+    var value: InstagramTabBarControllerDelegate?
+    weak var instagramDelegate: InstagramTabBarControllerDelegate? {
+        set { value = newValue }
+        get { return value }
+    }
     
+    //MARK: Delegate methods
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        instagramDelegate?.userChangedTab(item: item)
+    }
 }

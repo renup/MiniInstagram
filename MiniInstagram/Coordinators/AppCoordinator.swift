@@ -15,12 +15,14 @@ class AppCoordinator: NSObject {
     var navigationVC: UINavigationController?
     var loginLogoutCoordinator: LoginLogoutCoordinator?
     var mediaCoordinator: MediaCoordinator?
+    var tabVC: InstagramTabBarController?
     
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
     }
     
     func start() {
+        tabVC?.instagramDelegate = self
         guard let navVC = navigationVC else {
             return
         }
@@ -32,22 +34,32 @@ class AppCoordinator: NSObject {
     }
     
     fileprivate func initiateMediaCoordinator(_ navVC: UINavigationController) {
-        let mediaCoordinatorInstance = MediaCoordinator(navVC)
-        mediaCoordinator = mediaCoordinatorInstance
-        mediaCoordinator?.delegate = self
-        mediaCoordinatorInstance.showMediaViewController()
+        if mediaCoordinator == nil {
+            let mediaCoordinatorInstance = MediaCoordinator(navVC)
+            mediaCoordinator = mediaCoordinatorInstance
+            mediaCoordinator?.delegate = self
+        }
+        mediaCoordinator?.showMediaViewController()
     }
     
     fileprivate func initiateLoginCoordinator(_ navVC: UINavigationController) {
-        let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navVC)
-        loginLogoutCoordinator = loginLogoutCoordinatorInstance
-        loginLogoutCoordinatorInstance.showLoginVC()
+        if loginLogoutCoordinator == nil {
+            let loginLogoutCoordinatorInstance = LoginLogoutCoordinator(navVC)
+            loginLogoutCoordinator = loginLogoutCoordinatorInstance
+        }
+        loginLogoutCoordinator?.showLoginVC()
     }
 }
 
 extension AppCoordinator: MediaCoordinatorDelegate {
     func needToRefreshAuthorizingWithInstagram() {
         initiateLoginCoordinator(navigationVC!)
+    }
+}
+
+extension AppCoordinator: InstagramTabBarControllerDelegate {
+    func userChangedTab(item: UITabBarItem) {
+        initiateMediaCoordinator(navigationVC!)
     }
     
     

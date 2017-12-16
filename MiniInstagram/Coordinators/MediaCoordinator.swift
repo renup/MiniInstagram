@@ -8,7 +8,7 @@
 
 import Foundation
 import OAuthSwift
-import Alamofire
+//import Alamofire
 
 protocol MediaCoordinatorDelegate: class {
     func needToRefreshAuthorizingWithInstagram()
@@ -74,12 +74,19 @@ class MediaCoordinator: NSObject {
     func showMediaViewController() {
 //        getMedia()
         getLikes()
+        
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
-            tabVC.selectedIndex = 1
-            if let mediaVC = tabVC.selectedViewController as? MediaViewController {
-                mediaViewController = mediaVC
-                mediaViewController?.delegate = self
+            
+            if tabVC.selectedIndex == 1 {
+                
+            } else {
+                tabVC.selectedIndex = 1
+                if let mediaVC = tabVC.selectedViewController as? MediaViewController {
+                    mediaViewController = mediaVC
+                    mediaViewController?.delegate = self
+                }
             }
+            
         }
     }
 }
