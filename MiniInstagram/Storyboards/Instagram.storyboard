@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="e9d-af-oSl" id="H8y-iA-Ouf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="349.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M1W-3p-MTl">
@@ -37,9 +37,6 @@
                                                 <constraint firstAttribute="width" constant="84" id="NIY-s2-hsJ"/>
                                             </constraints>
                                             <state key="normal" title="Like"/>
-                                            <connections>
-                                                <action selector="likeButtonClicked:" destination="e9d-af-oSl" eventType="touchUpInside" id="eY2-QR-iTK"/>
-                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ro4-AY-I7G">
                                             <rect key="frame" x="264" y="298" width="84" height="44"/>
@@ -62,8 +59,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="likeButton" destination="X1C-Qc-4lq" id="fwZ-gZ-hcb"/>
                                     <outlet property="mediaImageView" destination="M1W-3p-MTl" id="CwY-Zi-MWd"/>
-                                    <outlet property="unlikeButtonClicked" destination="Ro4-AY-I7G" id="Ime-N4-lHz"/>
+                                    <outlet property="unlikeButton" destination="Ro4-AY-I7G" id="Lw4-ZY-RrV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -91,7 +89,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="290"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kFC-C3-xq6" id="Iqt-Au-muV">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="289.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEQ-ZK-I9u">

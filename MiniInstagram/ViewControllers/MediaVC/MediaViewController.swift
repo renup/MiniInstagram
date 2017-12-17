@@ -38,6 +38,8 @@ class MediaViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         if let media = mediaAlbum {
             cell.configureCell(media: media[indexPath.row])
+            cell.likeButton.isHidden = true
+            cell.unlikeButton.isHidden = true
         }
         return cell
     }

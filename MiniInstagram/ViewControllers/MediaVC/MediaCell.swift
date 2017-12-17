@@ -11,6 +11,8 @@ import UIKit
 
 class MediaCell: UITableViewCell {
     
+    @IBOutlet weak var unlikeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var mediaImageView: UIImageView!
     var imageHelper: ImageHelper { return .shared }
 
@@ -40,10 +42,5 @@ class MediaCell: UITableViewCell {
     private func populateWithImage(image: UIImage) {
         mediaImageView.image = image
     }
-    
-    @IBAction func likeButtonClicked(_ sender: Any) {
-    }
-    
-    @IBOutlet weak var unlikeButtonClicked: UIButton!
     
 }
