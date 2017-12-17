@@ -78,6 +78,43 @@
             </objects>
             <point key="canvasLocation" x="748" y="1272"/>
         </scene>
+        <!--Album Contents View Controller-->
+        <scene sceneID="psD-hV-trp">
+            <objects>
+                <tableViewController storyboardIdentifier="AlbumContentsViewController" id="5Z4-5v-PC6" customClass="AlbumContentsViewController" customModule="MiniInstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="350" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Uff-u1-FBH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="picture" rowHeight="290" id="kFC-C3-xq6" customClass="PictureCell" customModule="MiniInstagram" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="290"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kFC-C3-xq6" id="Iqt-Au-muV">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="289.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YEQ-ZK-I9u">
+                                            <rect key="frame" x="18" y="8" width="339" height="259"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="pictureImageView" destination="YEQ-ZK-I9u" id="E4M-bU-HOS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5Z4-5v-PC6" id="ZR3-i7-uMo"/>
+                            <outlet property="delegate" destination="5Z4-5v-PC6" id="Ei1-IR-xC1"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q0g-fF-umF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1584.8" y="1270.6146926536733"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="NsE-xL-Fn4">
             <objects>

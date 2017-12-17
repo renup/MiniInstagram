@@ -19,6 +19,9 @@ class MediaCoordinator: NSObject {
     var navigationVC: UINavigationController?
     var mediaViewController: MediaViewController?
     var value: MediaCoordinatorDelegate?
+    var albumContentViewController: AlbumContentsViewController?
+    var tabViewController: InstagramTabBarController?
+    
     weak var delegate: MediaCoordinatorDelegate? {
         set { value = newValue }
         get { return value }
@@ -28,14 +31,37 @@ class MediaCoordinator: NSObject {
         self.navigationVC = navigationVC
     }
     
+    func showMediaViewController() {
+        getMedia()
+        //        getLikes()
+        
+        if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
+            tabViewController = tabVC
+//            tabViewController?.instagramDelegate = self
+            
+            guard let navVC = tabVC.viewControllers![1] as? UINavigationController else {
+                return
+            }
+            
+            if tabVC.selectedIndex != 1 { //by default tabVC starts with login scene
+                tabVC.selectedIndex = 1
+            }
+            
+            if let mediaVC = navVC.viewControllers.first as? MediaViewController {
+                mediaViewController = mediaVC
+                mediaViewController?.delegate = self
+            }
+        }
+    }
+    
     func getMedia() {
         DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
                 if response != nil {
                     var albumArray = [Media]()
                     let json = JSON(response!)
-                    let array = json["data"]
-                    for item in array {
+                    let array = json["data"] //albums array
+                    for item in array { //
                         let album = Media(mediaAlbum: item)
                         albumArray.append(album)
                     }
@@ -72,32 +98,46 @@ class MediaCoordinator: NSObject {
         mediaViewController?.present(alert, animated: true, completion: nil)
     }
     
-    func showMediaViewController() {
-        getMedia()
-//        getLikes()
-        
-        if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
-            
-            guard let navVC = tabVC.viewControllers![1] as? UINavigationController else {
-                return
-            }
-            
-            if tabVC.selectedIndex != 1 { //by default tabVC starts with login scene
-                tabVC.selectedIndex = 1
-            }
-            
-            if let mediaVC = navVC.viewControllers.first as? MediaViewController {
-                mediaViewController = mediaVC
-                mediaViewController?.delegate = self
-            }
-        }
-    }
+  
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
-    func userLikedAMedia() {
-        
+    
+    func processAlbumContents(album: Media) -> [AlbumContent] {
+        var albumImages = [AlbumContent]()
+        if let imagesArray = album.carouselMedia {
+            for subJson in imagesArray {
+                var contentString = ""
+                if subJson["images"].dictionary != nil {
+                  contentString = subJson["images"]["low_resolution"]["url"].stringValue
+                } else if subJson["videos"].dictionary != nil {
+                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
+                }
+                let albumContent = AlbumContent(urlString: contentString)
+                albumImages.append(albumContent)
+            } // end of for loop
+        } //end of if let
+        return albumImages
     }
+    
+    func userSelectedAnAlbum(media: Media) {
+        let albumPictureURLs = processAlbumContents(album: media)
+    
+        if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
+            if albumContentViewController == nil {
+                guard let albumContentVC = AlbumContentsViewController.instantiateControllerFromStoryboard(name: "Instagram", identifier: "AlbumContentsViewController") as? AlbumContentsViewController else {
+                    return
+                }
+                
+                albumContentViewController = albumContentVC
+                albumContentViewController?.albumPictureURLs = albumPictureURLs
+                
+                navVC.pushViewController(albumContentVC, animated: true)
+            }
+        }
+    }
+    
+    
     
     
 }

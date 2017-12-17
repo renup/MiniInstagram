@@ -12,7 +12,7 @@ import SwiftyJSON
 struct Media {
     var userName: String?
     var imageURLString: String?
-    var carouselMedia: Any?
+    var carouselMedia: [JSON]?
     
     init(mediaAlbum: (String, JSON)) {
         print("mediaAlbum = \(mediaAlbum)")
@@ -30,7 +30,24 @@ struct Media {
 //        for (index,subJson):(String, JSON) in json {
 //            // Do something you want
 //        }
-        carouselMedia = json["carousel_media"]
+        carouselMedia = json["carousel_media"].arrayValue
         print("carousal = \(String(describing: carouselMedia))")
     }
+}
+
+struct AlbumContent {
+    var imageURLStr: String?
+    
+    init(urlString: String) {
+        imageURLStr = urlString
+    }
+    
+//    init(album: Media) {
+//        if let imagesArray = album.carouselMedia as? Array<JSON> {
+//            for subJson in imagesArray {
+//                let imgString = subJson["images"]["low_resolution"].stringValue
+//                albumMedia?.append(imgString)
+//            }
+//        }
+//    }
 }

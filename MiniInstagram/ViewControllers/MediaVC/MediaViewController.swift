@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol MediaViewControllerDelegate: class {
-    func userLikedAMedia()
+    func userSelectedAnAlbum(media: Media)
 }
 
 class MediaViewController: UITableViewController {
@@ -40,6 +40,12 @@ class MediaViewController: UITableViewController {
             cell.configureCell(media: media[indexPath.row])
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let media = mediaAlbum {
+            delegate?.userSelectedAnAlbum(media: media[indexPath.row])
+        }
     }
     
 }
