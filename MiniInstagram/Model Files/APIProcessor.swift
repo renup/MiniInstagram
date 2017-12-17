@@ -119,19 +119,5 @@ extension APIProcessor {
         )
     }
     
-//    func refreshAccessToken() {
-//
-//       // if oauthswift.client.credential.isTokenExpired() {
-//            oauthswift.startAuthorizedRequest("https://api.instagram.com/oauth/authorize", method: OAuthSwiftHTTPRequest.Method.GET, parameters: [:], success: {[unowned self] (response) in
-//                print("token = \(response.re)")
-//                KeychainSwift().set("\(self.oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
-//
-//                print("response = \(String(describing: response))")
-//            }, failure: { (error) in
-//                print("error in renewing token = \(String(describing: error))")
-//            })
-//       // }
-//    }
-    
     
 }
