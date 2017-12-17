@@ -78,8 +78,8 @@ extension APIProcessor {
         let _ = oauthswift.authorize(
             withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
             success: {[unowned self] credential, response, parameters in
-                //self.testInstagram(oauthswift)
-                KeychainSwift().clear()
+                //reset accessToken
+                KeychainSwift().delete(Constants.accessToken)
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
@@ -118,6 +118,5 @@ extension APIProcessor {
         }
         )
     }
-    
     
 }
