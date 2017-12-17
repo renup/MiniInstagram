@@ -30,13 +30,12 @@ class APIProcessor: NSObject {
     let baseURLString = "https://api.instagram.com/v1/"
     let accessToken = KeychainSwift().get(Constants.accessToken)
     
-    //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.cb1c255fe1ff4a65b8c1acde5d210240
-    
-    //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c31
     func fetchMedia(completionHandler: @escaping completionHandler) {
         if let token = accessToken {
             let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
             print("finalURLString = \(finalURLString)")
+            //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
+
             if let url = URL(string: finalURLString) {
                 Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
 //                    print("media response: \(response)")
@@ -52,12 +51,11 @@ class APIProcessor: NSObject {
         }
         
         //https://api.instagram.com/v1/users/self/media/liked?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
-        
         let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(String(describing: token))"
-//        #if debug
+        #if debug
             print("finalURLString = \(finalURLString)")
             print("token = \(String(describing: token))")
-//        #endif
+        #endif
 
         if let url = URL(string: finalURLString) {
         
@@ -81,11 +79,12 @@ extension APIProcessor {
             withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
             success: {[unowned self] credential, response, parameters in
                 //self.testInstagram(oauthswift)
-                self.getUserInfoInstagram(oauthswift)
+                KeychainSwift().clear()
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
+                self.getUserInfoInstagram(oauthswift)
             },
             failure: { error in
                 

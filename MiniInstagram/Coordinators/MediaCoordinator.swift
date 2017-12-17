@@ -24,14 +24,28 @@ class MediaCoordinator: NSObject {
         get { return value }
     }
     
+    var mediaAlbum: [Media]?
+
+    
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
     }
     
     func getMedia() {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchMedia(completionHandler: { (response) in
-                print("Printing json response in mediaCoordinator : \(String(describing: response))")
+            APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
+                if response != nil {
+                    var albumArray = [Media]()
+                    let json = JSON(response!)
+                    let array = json["data"]
+                    for item in array {
+                        let album = Media(mediaAlbum: item)
+                        albumArray.append(album)
+                    }
+                    self.mediaAlbum = albumArray
+                }
+                
+                print("Printing media json response in mediaCoordinator : \(String(describing: response))")
             })
         }
     }
@@ -62,8 +76,8 @@ class MediaCoordinator: NSObject {
     }
     
     func showMediaViewController() {
-//        getMedia()
-        getLikes()
+        getMedia()
+//        getLikes()
         
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
             
