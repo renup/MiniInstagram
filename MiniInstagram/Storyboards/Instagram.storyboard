@@ -143,8 +143,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="wta-3y-H09" kind="relationship" relationship="viewControllers" id="hj9-eE-cDJ"/>
-                        <segue destination="CEX-MP-Z8L" kind="relationship" relationship="viewControllers" id="bUp-gR-bzI"/>
-                        <segue destination="ojL-rc-mkQ" kind="relationship" relationship="viewControllers" id="2Yg-dc-RTK"/>
+                        <segue destination="CEX-MP-Z8L" kind="relationship" relationship="viewControllers" id="wTV-RU-KpD"/>
+                        <segue destination="ojL-rc-mkQ" kind="relationship" relationship="viewControllers" id="Xjh-1I-Onh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14b-ic-f8z" userLabel="First Responder" sceneMemberID="firstResponder"/>

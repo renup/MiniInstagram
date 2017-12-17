@@ -78,7 +78,7 @@ class MediaCoordinator: NSObject {
         
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
             
-            guard let navVC = tabVC.selectedViewController as? UINavigationController else {
+            guard let navVC = tabVC.viewControllers![1] as? UINavigationController else {
                 return
             }
             
