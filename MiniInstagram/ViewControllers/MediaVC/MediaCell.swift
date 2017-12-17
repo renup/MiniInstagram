@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import AlamofireImage
-import Alamofire
 
 class MediaCell: UITableViewCell {
     
@@ -17,9 +15,9 @@ class MediaCell: UITableViewCell {
     var imageHelper: ImageHelper { return .shared }
 
     func configureCell(media: Media) {
-        setPlaceholderImage(urlString: media.imageURLString)
-        imageHelper.reset()
         if let urlStr = media.imageURLString {
+            setPlaceholderImage(urlString: urlStr)
+            imageHelper.reset()
             imageHelper.loadImage(urlString: urlStr, completionHandler: {[unowned self] (image) in
                 if let receivedImage = image {
                     self.populateWithImage(image: receivedImage)
@@ -28,12 +26,12 @@ class MediaCell: UITableViewCell {
         }
     }
     
-    private func setPlaceholderImage(urlString: String?) {
+    private func setPlaceholderImage(urlString: String) {
         // Assigns a placeholder image for the cell
-        guard let placeholderImage = UIImage(named: "placeHolder.png"), let urlStr = urlString, let imgURL = URL(string: urlStr) else {
+        guard let imgURL = URL(string: urlString) else {
             return
         }
-        mediaImageView.af_setImage(withURL: imgURL, placeholderImage: placeholderImage)
+        mediaImageView.af_setImage(withURL: imgURL, placeholderImage: imageHelper.getPlaceHolderImage(inputURLStr: urlString))
     }
     
     /// Populates the coverImageview with the image provided

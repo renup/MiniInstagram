@@ -19,6 +19,19 @@ class ImageHelper: NSObject {
         request?.cancel()
     }
     
+    func getPlaceHolderImage(inputURLStr: String) -> UIImage {
+        var placeHolder = ""
+        if inputURLStr.hasSuffix("mp4") {
+            placeHolder = "videoPlaceHolder.png"
+        } else {
+            placeHolder = "placeHolder.png"
+        }
+        guard  let image = UIImage(named: placeHolder) else {
+            return UIImage()
+        }
+        return image
+    }
+    
     /// Loads the image from cache or server
     ///
     /// - Parameter urlString: URL for the image
