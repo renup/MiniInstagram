@@ -13,10 +13,10 @@ import Alamofire
 
 class MediaCell: UITableViewCell {
     
+    @IBOutlet weak var mediaImageView: UIImageView!
     var request: Request?
     var apiProcessor : APIProcessor { return .shared }
-    @IBOutlet weak var mediaImageView: UIImageView!
-    @IBOutlet weak var likeUnlikeButton: UIButton!
+    
     
     func configureCell(media: Media) {
         setPlaceholderImage(urlString: media.imageURLString)
@@ -68,9 +68,9 @@ class MediaCell: UITableViewCell {
         mediaImageView.image = image
     }
     
-    
-    @IBAction func likeUnlikeButtonClicked(_ sender: Any) {
+    @IBAction func likeButtonClicked(_ sender: Any) {
     }
     
+    @IBOutlet weak var unlikeButtonClicked: UIButton!
     
 }

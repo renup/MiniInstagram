@@ -13,13 +13,11 @@ protocol MediaViewControllerDelegate: class {
     func userLikedAMedia()
 }
 
-class MediaViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet weak var mediaTableView: UITableView!
+class MediaViewController: UITableViewController {
     
     var mediaAlbum: [Media]? {
         didSet {
-            mediaTableView.reloadData()
+            tableView.reloadData()
         }
     }
     var value: MediaViewControllerDelegate?
@@ -29,14 +27,14 @@ class MediaViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     //MARK: dataSource methods
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let media = mediaAlbum {
             return media.count
         }
         return 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         if let media = mediaAlbum {
             cell.configureCell(media: media[indexPath.row])

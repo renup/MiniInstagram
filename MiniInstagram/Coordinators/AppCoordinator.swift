@@ -59,7 +59,11 @@ extension AppCoordinator: MediaCoordinatorDelegate {
 
 extension AppCoordinator: InstagramTabBarControllerDelegate {
     func userChangedTab(item: UITabBarItem) {
-        initiateMediaCoordinator(navigationVC!)
+        if item.title == "Media" {
+            initiateMediaCoordinator(navigationVC!)
+        } else if item.title == "Likes" {
+            
+        }
     }
     
     

@@ -78,16 +78,18 @@ class MediaCoordinator: NSObject {
         
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
             
-            if tabVC.selectedIndex == 1 {
-                
-            } else {
-                tabVC.selectedIndex = 1
-                if let mediaVC = tabVC.selectedViewController as? MediaViewController {
-                    mediaViewController = mediaVC
-                    mediaViewController?.delegate = self
-                }
+            guard let navVC = tabVC.selectedViewController as? UINavigationController else {
+                return
             }
             
+            if tabVC.selectedIndex != 1 { //by default tabVC starts with login scene
+                tabVC.selectedIndex = 1
+            }
+            
+            if let mediaVC = navVC.viewControllers.first as? MediaViewController {
+                mediaViewController = mediaVC
+                mediaViewController?.delegate = self
+            }
         }
     }
 }
