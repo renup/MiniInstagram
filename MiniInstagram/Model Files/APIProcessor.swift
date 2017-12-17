@@ -11,11 +11,24 @@ import Alamofire
 import KeychainSwift
 import OAuthSwift
 import SwiftyJSON
+import AlamofireImage
 
 typealias completionHandler = ((_ response: Any?) -> Void)
 
+extension UInt64 {
+    func megabytes() -> UInt64 {
+        return self * 1024 * 1024
+    }
+}
+
 class APIProcessor: NSObject {
     static let shared: APIProcessor = APIProcessor()
+    
+    // specifying cache size for managing the images
+    let imageCache = AutoPurgingImageCache(
+        memoryCapacity: UInt64(100).megabytes(),
+        preferredMemoryUsageAfterPurge: UInt64(60).megabytes()
+    )
     
     lazy var oauthswift = OAuth2Swift(
             consumerKey:    "e2728b29aa6345299785d2eebd1c9f27",
@@ -118,5 +131,45 @@ extension APIProcessor {
         }
         )
     }
+}
+
+extension APIProcessor {
     
+    /// Fetches Images for a restaurant
+    ///
+    /// - Parameters:
+    ///   - imageURLString: restaurant Image URL String
+    ///   - imageDownloadHandler: Handler contains jsonResponse array and error
+    /// - Returns: returns a UIImage object for the restaurant
+    func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) -> Request {
+        //download image data using alamofire
+        
+        return Alamofire.request(imageURLString, method: .get).responseImage { (response) in
+            if let image = response.result.value {
+                imageDownloadHandler(image)
+                self.cache(image, for: imageURLString)
+            } else {
+                imageDownloadHandler(nil)
+            }
+        }
+    }
+    
+    /// Saves an image to the memory cache
+    ///
+    /// - Parameters:
+    ///   - image: Image object to be saved to cache
+    ///   - url: URL string to be associated with the image being saved to cache
+    func cache(_ image: Image, for url: String) {
+        imageCache.add(image, withIdentifier: url)
+    }
+    
+    
+    /// Returns cached image for the URL string provided
+    ///
+    /// - Parameter url: url string associated with the cached image
+    /// - Returns: returns an Image object from the cache
+    func cachedImage(for url: String) -> Image? {
+        return imageCache.image(withIdentifier: url)
+    }
+
 }

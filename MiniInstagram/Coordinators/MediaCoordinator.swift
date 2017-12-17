@@ -24,9 +24,6 @@ class MediaCoordinator: NSObject {
         get { return value }
     }
     
-    var mediaAlbum: [Media]?
-
-    
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
     }
@@ -42,7 +39,7 @@ class MediaCoordinator: NSObject {
                         let album = Media(mediaAlbum: item)
                         albumArray.append(album)
                     }
-                    self.mediaAlbum = albumArray
+                    self.mediaViewController?.mediaAlbum = albumArray
                 }
                 
                 print("Printing media json response in mediaCoordinator : \(String(describing: response))")

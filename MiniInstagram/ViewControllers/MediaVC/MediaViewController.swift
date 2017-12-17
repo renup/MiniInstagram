@@ -9,29 +9,19 @@
 import Foundation
 import UIKit
 
-class MediaCell: UITableViewCell {
-    @IBOutlet weak var mediaImageView: UIImageView!
-    
-    @IBOutlet weak var likeUnlikeButton: UIButton!
-    
-    func configureCell(media: Media) {
-        
-    }
-    
-    @IBAction func likeUnlikeButtonClicked(_ sender: Any) {
-    }
-    
-    
-}
-
-
 protocol MediaViewControllerDelegate: class {
     func userLikedAMedia()
 }
 
 class MediaViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var mediaAlbum: [Media]?
+    @IBOutlet weak var mediaTableView: UITableView!
+    
+    var mediaAlbum: [Media]? {
+        didSet {
+            mediaTableView.reloadData()
+        }
+    }
     var value: MediaViewControllerDelegate?
     weak var delegate: MediaViewControllerDelegate? {
         get{ return value }

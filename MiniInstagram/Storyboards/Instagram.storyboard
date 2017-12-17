@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,26 +40,36 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="&quot;mediaCell&quot;" rowHeight="241" id="eR1-kM-tAZ" customClass="MediaCell" customModule="MiniInstagram" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mediaCell" rowHeight="241" id="eR1-kM-tAZ" customClass="MediaCell" customModule="MiniInstagram" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="241"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eR1-kM-tAZ" id="H8e-zl-ktr">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="240.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d9J-by-iSG">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d9J-by-iSG">
                                                     <rect key="frame" x="38" y="39" width="298" height="153"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uB9-VK-gtN">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uB9-VK-gtN">
                                                     <rect key="frame" x="253" y="200" width="83" height="33"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="83" id="NLu-5J-jKN"/>
+                                                        <constraint firstAttribute="height" constant="33" id="r5W-R5-pyZ"/>
+                                                    </constraints>
                                                     <state key="normal" title="Like/UnLike"/>
                                                     <connections>
                                                         <action selector="likeUnlikeButtonClicked:" destination="eR1-kM-tAZ" eventType="touchUpInside" id="AOM-XI-Okg"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="uB9-VK-gtN" secondAttribute="bottom" constant="-0.5" id="2kd-lj-xbS"/>
+                                                <constraint firstItem="uB9-VK-gtN" firstAttribute="top" secondItem="d9J-by-iSG" secondAttribute="bottom" constant="8" symbolic="YES" id="D2W-DI-prn"/>
+                                                <constraint firstItem="d9J-by-iSG" firstAttribute="centerX" secondItem="H8e-zl-ktr" secondAttribute="centerX" id="WWg-Rg-QU3"/>
+                                                <constraint firstItem="d9J-by-iSG" firstAttribute="leading" secondItem="H8e-zl-ktr" secondAttribute="leadingMargin" constant="30" id="Xod-ek-EtK"/>
+                                                <constraint firstItem="d9J-by-iSG" firstAttribute="top" secondItem="H8e-zl-ktr" secondAttribute="topMargin" constant="31" id="gcj-Xc-yZS"/>
+                                                <constraint firstItem="d9J-by-iSG" firstAttribute="trailing" secondItem="uB9-VK-gtN" secondAttribute="trailing" id="jux-yy-BIB"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="likeUnlikeButton" destination="uB9-VK-gtN" id="CcP-L9-xRg"/>
@@ -76,6 +87,9 @@
                         <viewLayoutGuide key="safeArea" id="wY4-cA-IZ0"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Media" id="jD1-Yt-ebd"/>
+                    <connections>
+                        <outlet property="mediaTableView" destination="olm-H8-uzm" id="inq-lN-bUx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pce-nI-QVY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
