@@ -74,15 +74,21 @@ class MediaCoordinator: NSObject {
     }
     
     func getLikes() {
-        DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
+        DispatchQueue.global(qos: .utility).async {            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
                 
                 let json = JSON(response!)
                 let errorType = json["meta"]["error_type"]
-                if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
-                    //Just renew the auth token since it is expired
-                    self.promptUserToReAuthorizeWithInstagram()
+                
+                if (errorType.dictionaryObject != nil) {
+                    if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
+                        //Just renew the auth token since it is expired
+                        self.promptUserToReAuthorizeWithInstagram()
+                    }
+                } else {
+                    
                 }
+                
+                
                 
                 print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
             })

@@ -10,9 +10,7 @@ import Foundation
 import UIKit
 
 class MediaCell: UITableViewCell {
-    
-    @IBOutlet weak var unlikeButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
+
     @IBOutlet weak var mediaImageView: UIImageView!
     var imageHelper: ImageHelper { return .shared }
 
