@@ -50,7 +50,7 @@ class MediaViewController: UITableViewController {
     }
     
     @IBAction func likeUnlikeButtonClicked(_ sender: Any) {
-        
+        delegate?.userClickedLikeUnlikeButton(media: mediaAlbum![0])
     }
     
 }

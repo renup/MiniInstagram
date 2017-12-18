@@ -10,16 +10,7 @@ import Foundation
 import UIKit
 import AlamofireImage
 
-protocol AlbumContentViewControllerDelegate: class {
-    func userClickedLikeUnlikeButton()
-}
-
 class AlbumContentsViewController: UITableViewController {
-    var value: AlbumContentViewControllerDelegate?
-    weak var delegate: AlbumContentViewControllerDelegate? {
-        set{ value = newValue }
-        get { return value }
-    }
     
     var albumPictureURLs: [AlbumContent]? {
         didSet {

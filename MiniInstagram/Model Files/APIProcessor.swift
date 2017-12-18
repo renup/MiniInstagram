@@ -43,6 +43,25 @@ class APIProcessor: NSObject {
     let baseURLString = "https://api.instagram.com/v1/"
     let accessToken = KeychainSwift().get(Constants.accessToken)
     
+    //https://api.instagram.com/v1/media/{media-id}/likes
+    func likeUnlikeMedia(mediaId: String, like: Bool, completionHandler:@escaping completionHandler) {
+        if let token = accessToken {
+            let finalURLString = baseURLString + "media/" + mediaId + "/likes?access_token=" + token
+            if let url = URL(string: finalURLString) {
+                if like {
+                    Alamofire.request(url, method: .post).responseJSON(completionHandler: { (response) in
+                        completionHandler(response.result.value)
+                    })
+                } else {
+                    Alamofire.request(url, method: .delete).responseJSON(completionHandler: { (response) in
+                        completionHandler(response.result.value)
+                    })
+                }
+
+            }
+        }
+    }
+    
     func fetchMedia(completionHandler: @escaping completionHandler) {
         if let token = accessToken {
             let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
