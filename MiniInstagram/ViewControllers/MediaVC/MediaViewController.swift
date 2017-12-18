@@ -11,10 +11,11 @@ import UIKit
 
 protocol MediaViewControllerDelegate: class {
     func userSelectedAnAlbum(media: Media)
+    func userClickedLikeUnlikeButton(media: Media)
 }
 
 class MediaViewController: UITableViewController {
-    
+
     var mediaAlbum: [Media]? {
         didSet {
             tableView.reloadData()
@@ -46,6 +47,10 @@ class MediaViewController: UITableViewController {
         if let media = mediaAlbum {
             delegate?.userSelectedAnAlbum(media: media[indexPath.row])
         }
+    }
+    
+    @IBAction func likeUnlikeButtonClicked(_ sender: Any) {
+        
     }
     
 }
