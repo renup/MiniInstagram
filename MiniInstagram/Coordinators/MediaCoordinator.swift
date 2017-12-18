@@ -67,10 +67,8 @@ class MediaCoordinator: NSObject {
                     return
                 }
                 tabViewController?.selectedIndex = 1
-                if mediaViewController == nil {
-                    if let mediaVC = navVC.viewControllers.first as? MediaViewController {
-                        mediaViewController = mediaVC
-                    }
+                if let mediaVC = navVC.viewControllers.first as? MediaViewController {
+                    mediaViewController = mediaVC
                 }
                 mediaViewController?.delegate = self
                 getMedia()
@@ -79,10 +77,8 @@ class MediaCoordinator: NSObject {
                     return
                 }
                 tabViewController?.selectedIndex = 2
-                if albumContentViewController == nil {
-                    if let albumContentsVC = navVC.viewControllers.first as? AlbumContentsViewController {
-                        albumContentViewController = albumContentsVC
-                    }
+                if let albumContentsVC = navVC.viewControllers.first as? AlbumContentsViewController {
+                    albumContentViewController = albumContentsVC
                 }
                 albumContentViewController?.delegate = self
                 getLikes()
@@ -179,12 +175,11 @@ extension MediaCoordinator: MediaViewControllerDelegate {
                 guard let albumContentVC = AlbumContentsViewController.instantiateControllerFromStoryboard(name: "Instagram", identifier: "AlbumContentsViewController") as? AlbumContentsViewController else {
                     return
                 }
-                
                 albumContentViewController = albumContentVC
-                albumContentViewController?.albumPictureURLs = albumPictureURLs
-                
-                navVC.pushViewController(albumContentVC, animated: true)
             }
+            albumContentViewController?.albumPictureURLs = albumPictureURLs
+            albumContentViewController?.delegate = self
+            navVC.pushViewController(albumContentViewController!, animated: true)
         }
     }
 }

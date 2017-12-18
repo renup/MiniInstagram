@@ -27,8 +27,10 @@ class AlbumContentsViewController: UITableViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        self.navigationController?.popViewController(animated: false)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("album nav vc = \(String(describing: self.navigationController))")
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
