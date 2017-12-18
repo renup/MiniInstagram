@@ -14,11 +14,12 @@ class AlbumContentsViewController: UITableViewController {
     
     var albumPictureURLs: [AlbumContent]? {
         didSet {
-            showMediaAbsentMessageOrRefreshTableView()
+            showMediaAbsentMessage()
+            tableView.reloadData()
         }
     }
     
-    private func showMediaAbsentMessageOrRefreshTableView() {
+    private func showMediaAbsentMessage() {
         guard let pictures = albumPictureURLs else {
             return
         }
@@ -27,8 +28,6 @@ class AlbumContentsViewController: UITableViewController {
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
-        } else {
-            tableView.reloadData()
         }
     }
     
