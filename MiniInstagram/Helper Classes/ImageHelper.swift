@@ -54,9 +54,9 @@ class ImageHelper: NSObject {
     ///
     /// - Parameter urlString: URL for image
     func downloadImage(urlString: String, completionHandler:@escaping ((_ image: Image?) -> Void)) {
-        request = apiProcessor.fetchImageData(imageURLString: urlString, imageDownloadHandler: { (storeImage) in
-            if let restaurantImage = storeImage {
-                completionHandler(restaurantImage)
+        request = apiProcessor.fetchImageData(imageURLString: urlString, imageDownloadHandler: { (media) in
+            if let photo = media {
+                completionHandler(photo)
             } else {
                 completionHandler(nil)
             }
