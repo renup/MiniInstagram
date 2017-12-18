@@ -51,6 +51,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="likeUnlikeButton" destination="ZkC-27-RJ6" id="sPZ-ye-bjn"/>
                                     <outlet property="mediaImageView" destination="M1W-3p-MTl" id="CwY-Zi-MWd"/>
                                 </connections>
                             </tableViewCell>

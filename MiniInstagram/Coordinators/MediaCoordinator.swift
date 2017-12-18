@@ -140,8 +140,16 @@ class MediaCoordinator: NSObject {
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
-    func userClickedLikeUnlikeButton(media: Media) {
-        <#code#>
+    func userClickedLikeUnlikeButton(media: Media, like: Bool, cell: MediaCell) {
+        if let id = media.mediaId {
+            APIProcessor.shared.likeUnlikeMedia(mediaId: id, like: like) {[unowned self] (response) in
+                let json = JSON(response!)
+                
+                if json["meta"]["code"] == 200 {
+                    self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like, cell: cell)
+                }
+            }
+        }
     }
     
     

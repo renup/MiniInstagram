@@ -11,6 +11,8 @@ import UIKit
 
 class MediaCell: UITableViewCell {
 
+    @IBOutlet weak var likeUnlikeButton: UIButton!
+    
     @IBOutlet weak var mediaImageView: UIImageView!
     var imageHelper: ImageHelper { return .shared }
 
