@@ -14,6 +14,31 @@ protocol MediaCoordinatorDelegate: class {
     func needToRefreshAuthorizingWithInstagram()
 }
 
+extension UIViewController {
+    func topMostViewController() -> UIViewController {
+        if self.presentedViewController == nil {
+            return self
+        }
+        if let navigation = self.presentedViewController as? UINavigationController {
+            return navigation.visibleViewController!.topMostViewController()
+        }
+        if let tab = self.presentedViewController as? UITabBarController {
+            if let selectedTab = tab.selectedViewController {
+                return selectedTab.topMostViewController()
+            }
+            return tab.topMostViewController()
+        }
+        return self.presentedViewController!.topMostViewController()
+    }
+}
+
+extension UIApplication {
+    func topMostViewController() -> UIViewController? {
+        return self.keyWindow?.rootViewController?.topMostViewController()
+    }
+}
+
+
 class MediaCoordinator: NSObject {
     var oauthswift: OAuthSwift?
     var navigationVC: UINavigationController?
@@ -31,26 +56,37 @@ class MediaCoordinator: NSObject {
         self.navigationVC = navigationVC
     }
     
+    
+    
     func showMediaViewController() {
-        getMedia()
-        //        getLikes()
         
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
             tabViewController = tabVC
-//            tabViewController?.instagramDelegate = self
-            
-            guard let navVC = tabVC.viewControllers![1] as? UINavigationController else {
-                return
-            }
-            
-            if tabVC.selectedIndex != 1 { //by default tabVC starts with login scene
-                tabVC.selectedIndex = 1
-            }
-            
-            if let mediaVC = navVC.viewControllers.first as? MediaViewController {
-                mediaViewController = mediaVC
+            if tabVC.selectedIndex == 1 {
+                guard let navVC = tabVC.viewControllers![1] as? UINavigationController else {
+                    return
+                }
+                tabViewController?.selectedIndex = 1
+                if mediaViewController == nil {
+                    if let mediaVC = navVC.viewControllers.first as? MediaViewController {
+                        mediaViewController = mediaVC
+                    }
+                }
                 mediaViewController?.delegate = self
-            }
+                getMedia()
+            } else  if tabVC.selectedIndex == 2 {
+                guard let navVC = tabVC.viewControllers?.last as? UINavigationController else {
+                    return
+                }
+                tabViewController?.selectedIndex = 2
+                if albumContentViewController == nil {
+                    if let albumContentsVC = navVC.viewControllers.first as? AlbumContentsViewController {
+                        albumContentViewController = albumContentsVC
+                    }
+                }
+                albumContentViewController?.delegate = self
+                getLikes()
+            } //end of else if
         }
     }
     
@@ -58,19 +94,40 @@ class MediaCoordinator: NSObject {
         DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
                 if response != nil {
-                    var albumArray = [Media]()
                     let json = JSON(response!)
-                    let array = json["data"] //albums array
-                    for item in array { //
-                        let album = Media(mediaAlbum: item)
-                        albumArray.append(album)
-                    }
-                    self.mediaViewController?.mediaAlbum = albumArray
+                    self.mediaViewController?.mediaAlbum = self.createMediaObjects(json: json)
                 }
                 
                 print("Printing media json response in mediaCoordinator : \(String(describing: response))")
             })
         }
+    }
+    
+    private func createMediaObjects(json: JSON) -> [Media] {
+        var albumArray = [Media]()
+        let array = json["data"] //albums array
+        for item in array { //
+            let album = Media(mediaAlbum: item)
+            albumArray.append(album)
+        }
+        return albumArray
+    }
+    
+    fileprivate func processAlbumContents(album: Media) -> [AlbumContent] {
+        var albumImages = [AlbumContent]()
+        if let imagesArray = album.carouselMedia {
+            for subJson in imagesArray {
+                var contentString = ""
+                if subJson["images"].dictionary != nil {
+                    contentString = subJson["images"]["low_resolution"]["url"].stringValue
+                } else if subJson["videos"].dictionary != nil {
+                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
+                }
+                let albumContent = AlbumContent(urlString: contentString)
+                albumImages.append(albumContent)
+            } // end of for loop
+        } //end of if let
+        return albumImages
     }
     
     func getLikes() {
@@ -85,7 +142,14 @@ class MediaCoordinator: NSObject {
                         self.promptUserToReAuthorizeWithInstagram()
                     }
                 } else {
+                    var likedPhotosURLStringArray = [AlbumContent]()
+                    let array = self.createMediaObjects(json: json)
+                    for item in array {
+                        let likedPhotos = self.processAlbumContents(album: item)
+                        likedPhotosURLStringArray.append(contentsOf: likedPhotos)
+                    }
                     
+                    self.albumContentViewController?.albumPictureURLs = likedPhotosURLStringArray
                 }
                 
                 
@@ -102,29 +166,10 @@ class MediaCoordinator: NSObject {
             self.delegate?.needToRefreshAuthorizingWithInstagram()
         }))
         mediaViewController?.present(alert, animated: true, completion: nil)
-    }
-    
-  
+    }  
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
-    
-    func processAlbumContents(album: Media) -> [AlbumContent] {
-        var albumImages = [AlbumContent]()
-        if let imagesArray = album.carouselMedia {
-            for subJson in imagesArray {
-                var contentString = ""
-                if subJson["images"].dictionary != nil {
-                  contentString = subJson["images"]["low_resolution"]["url"].stringValue
-                } else if subJson["videos"].dictionary != nil {
-                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
-                }
-                let albumContent = AlbumContent(urlString: contentString)
-                albumImages.append(albumContent)
-            } // end of for loop
-        } //end of if let
-        return albumImages
-    }
     
     func userSelectedAnAlbum(media: Media) {
         let albumPictureURLs = processAlbumContents(album: media)
@@ -142,8 +187,12 @@ extension MediaCoordinator: MediaViewControllerDelegate {
             }
         }
     }
-    
-    
+}
+
+extension MediaCoordinator: AlbumContentViewControllerDelegate {
+    func userClickedLikeUnlikeButton() {
+        
+    }
     
     
 }

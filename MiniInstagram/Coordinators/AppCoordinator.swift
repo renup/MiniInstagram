@@ -12,7 +12,7 @@ import KeychainSwift
 
 class AppCoordinator: NSObject {
 
-    var navigationVC: UINavigationController?
+    var navigationVC: UINavigationController!
     var loginLogoutCoordinator: LoginLogoutCoordinator?
     var mediaCoordinator: MediaCoordinator?
     var tabVC: InstagramTabBarController?
@@ -22,14 +22,18 @@ class AppCoordinator: NSObject {
     }
     
     func start() {
-        tabVC?.instagramDelegate = self
-        guard let navVC = navigationVC else {
+        guard let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController else {
             return
         }
+        self.tabVC = tabVC
+        self.tabVC?.instagramDelegate = self
+        
         if KeychainSwift().get(Constants.accessToken) != nil {
-            initiateMediaCoordinator(navVC)
+            tabVC.selectedIndex = 1
+            initiateMediaCoordinator(navigationVC)
         } else {
-            initiateLoginCoordinator(navVC)
+            tabVC.selectedIndex = 0
+            initiateLoginCoordinator(navigationVC)
         }
     }
     
@@ -53,16 +57,20 @@ class AppCoordinator: NSObject {
 
 extension AppCoordinator: MediaCoordinatorDelegate {
     func needToRefreshAuthorizingWithInstagram() {
-        initiateLoginCoordinator(navigationVC!)
+        initiateLoginCoordinator(navigationVC)
     }
 }
 
 extension AppCoordinator: InstagramTabBarControllerDelegate {
     func userChangedTab(item: UITabBarItem) {
         if item.title == "Media" {
-            initiateMediaCoordinator(navigationVC!)
+            tabVC?.selectedIndex = 1
+            initiateMediaCoordinator(navigationVC)
         } else if item.title == "Likes" {
-            
+            tabVC?.selectedIndex = 2
+            initiateMediaCoordinator(navigationVC)
+        } else {
+            initiateLoginCoordinator(navigationVC)
         }
     }
     

@@ -71,7 +71,6 @@ class APIProcessor: NSObject {
         #endif
 
         if let url = URL(string: finalURLString) {
-        
             Alamofire.request(url).responseJSON(completionHandler:{(response) in
                 completionHandler(response.result.value)
             })

@@ -10,12 +10,25 @@ import Foundation
 import UIKit
 import AlamofireImage
 
+protocol AlbumContentViewControllerDelegate: class {
+    func userClickedLikeUnlikeButton()
+}
+
 class AlbumContentsViewController: UITableViewController {
+    var value: AlbumContentViewControllerDelegate?
+    weak var delegate: AlbumContentViewControllerDelegate? {
+        set{ value = newValue }
+        get { return value }
+    }
     
     var albumPictureURLs: [AlbumContent]? {
         didSet {
             tableView.reloadData()
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.popViewController(animated: false)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

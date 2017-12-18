@@ -133,7 +133,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="K1h-PJ-ofY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="tBw-of-c23"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Settings" id="tBw-of-c23"/>
                     <connections>
                         <outlet property="loginLogoutButton" destination="1vH-dv-o7T" id="Eeq-Vt-RvH"/>
                         <outlet property="nameLabel" destination="m5u-wU-SEL" id="KGd-HR-1sI"/>
@@ -183,7 +183,7 @@
         <scene sceneID="AgO-Le-6I6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CEX-MP-Z8L" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Media" id="jD1-Yt-ebd"/>
+                    <tabBarItem key="tabBarItem" tag="4" title="Media" id="jD1-Yt-ebd"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MA8-QJ-xHD">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -202,7 +202,7 @@
         <scene sceneID="qHS-BZ-gzV">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ojL-rc-mkQ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Likes" id="CMy-gK-AFX"/>
+                    <tabBarItem key="tabBarItem" tag="6" title="Likes" id="CMy-gK-AFX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ckE-a6-dSt">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
