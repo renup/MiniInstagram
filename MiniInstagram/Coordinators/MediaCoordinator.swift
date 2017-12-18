@@ -30,9 +30,7 @@ class MediaCoordinator: NSObject {
     init(_ navigationVC: UINavigationController) {
         self.navigationVC = navigationVC
     }
-    
-    
-    
+
     func showMediaViewController() {
         
         if let tabVC = navigationVC?.viewControllers.first as? InstagramTabBarController {
@@ -54,7 +52,13 @@ class MediaCoordinator: NSObject {
                 tabViewController?.selectedIndex = 2
                 if let albumContentsVC = navVC.viewControllers.first as? AlbumContentsViewController {
                     albumContentViewController = albumContentsVC
+                } else {
+                   //resetting the root of navVC for likes since we pulled it in other navigationstack
+                    if let albumVC = albumContentViewController {
+                        navVC.setViewControllers([albumVC], animated: false)
+                    }
                 }
+                
                 getLikes()
             } //end of else if
         }
@@ -118,13 +122,9 @@ class MediaCoordinator: NSObject {
                         let likedPhotos = self.processAlbumContents(album: item)
                         likedPhotosURLStringArray.append(contentsOf: likedPhotos)
                     }
-                    
                     self.albumContentViewController?.albumPictureURLs = likedPhotosURLStringArray
                 }
-                
-                
-                
-                print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
+//                print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
             })
         }
     }
