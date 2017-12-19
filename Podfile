@@ -13,7 +13,7 @@ target 'MiniInstagram' do
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
-	pod 'Quick'
+	    pod 'Quick'
     	pod 'Nimble'
     	pod 'Mockingjay' 
    end

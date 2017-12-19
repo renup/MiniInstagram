@@ -28,6 +28,8 @@
 		D7591C951FE6DE9B00FDCAA5 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7591C941FE6DE9B00FDCAA5 /* PictureCell.swift */; };
 		D7591C9D1FE8B17400FDCAA5 /* LikesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D7591C9B1FE8B17400FDCAA5 /* LikesResponse.json */; };
 		D7591C9E1FE8B17400FDCAA5 /* MediaResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D7591C9C1FE8B17400FDCAA5 /* MediaResponse.json */; };
+		D7591CA01FE8B29300FDCAA5 /* MediaCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7591C9F1FE8B29300FDCAA5 /* MediaCoordinatorTests.swift */; };
+		D7591CA21FE93CAB00FDCAA5 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7591CA11FE93CAB00FDCAA5 /* XCTest+Extensions.swift */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -80,6 +82,8 @@
 		D7591C941FE6DE9B00FDCAA5 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
 		D7591C9B1FE8B17400FDCAA5 /* LikesResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LikesResponse.json; sourceTree = "<group>"; };
 		D7591C9C1FE8B17400FDCAA5 /* MediaResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MediaResponse.json; sourceTree = "<group>"; };
+		D7591C9F1FE8B29300FDCAA5 /* MediaCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCoordinatorTests.swift; sourceTree = "<group>"; };
+		D7591CA11FE93CAB00FDCAA5 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			children = (
 				D7AE901F1FDD4B8F00836C2D /* MiniInstagramTests.swift */,
 				D7AE90211FDD4B8F00836C2D /* Info.plist */,
+				D7591C9F1FE8B29300FDCAA5 /* MediaCoordinatorTests.swift */,
+				D7591CA11FE93CAB00FDCAA5 /* XCTest+Extensions.swift */,
 			);
 			path = MiniInstagramTests;
 			sourceTree = "<group>";
@@ -633,6 +639,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7AE90201FDD4B8F00836C2D /* MiniInstagramTests.swift in Sources */,
+				D7591CA01FE8B29300FDCAA5 /* MediaCoordinatorTests.swift in Sources */,
+				D7591CA21FE93CAB00FDCAA5 /* XCTest+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
