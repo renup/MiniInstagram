@@ -13,8 +13,10 @@ target 'MiniInstagram' do
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
-    # Pods for testing
-  end
+	pod 'Quick'
+    	pod 'Nimble'
+    	pod 'Mockingjay' 
+   end
 
   target 'MiniInstagramUITests' do
     inherit! :search_paths
