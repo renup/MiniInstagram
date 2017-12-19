@@ -92,7 +92,7 @@ class APIProcessor: NSObject {
         #endif
         // here with no validate() in alamofire request, we will receive error in response too
         if let url = URL(string: finalURLString) {
-            Alamofire.request(url).responseJSON(completionHandler:{(response) in
+            Alamofire.request(url).validate().responseJSON(completionHandler:{(response) in
                 completionHandler(response.result.value)
             })
         }

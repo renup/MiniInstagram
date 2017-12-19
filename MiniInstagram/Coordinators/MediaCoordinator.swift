@@ -64,28 +64,6 @@ class MediaCoordinator: NSObject {
         }
     }
     
-    func requestMedia(_ completionHandler: @escaping completionHandler) {
-        DispatchQueue.global(qos: .utility).async {
-        APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
-            if response != nil {
-                let json = JSON(response!)
-                let mediaObjectsArray = self.createMediaObjects(json: json)
-                completionHandler(mediaObjectsArray)
-                    return
-            }
-            completionHandler(response)
-        })
-        }
-    }
-    
-    func getMedia() {
-        //start loading animation
-        requestMedia {[unowned self] (mediaObjects) in
-            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
-        }
-        //stop loading animation
-    }
-
     private func createMediaObjects(json: JSON) -> [Media] {
         var albumArray = [Media]()
         let array = json["data"] //albums array
@@ -113,38 +91,59 @@ class MediaCoordinator: NSObject {
         return albumImages
     }
     
-    func getLikes() {
+    
+    func requestMedia(_ completionHandler: @escaping completionHandler) {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
-                if let result = response {
-                    self.processLikesResponse(response: result)
-                } else {
-                    self.albumContentViewController?.albumPictureURLs = [AlbumContent]() //passing empty array to show the alert
+            APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
+                if response != nil {
+                    let json = JSON(response!)
+                    let mediaObjectsArray = self.createMediaObjects(json: json)
+                    completionHandler(mediaObjectsArray)
+                        return
                 }
+                completionHandler(response)
             })
         }
     }
     
-    private func processLikesResponse(response: Any) {
+    private func getMedia() {
+        //start loading animation
+        requestMedia {[unowned self] (mediaObjects) in
+            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
+        }
+        //stop loading animation
+    }
+
+    func requestLikes(_ likesCompletionHandler: @escaping completionHandler) {
+        DispatchQueue.global(qos: .utility).async {
+            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
+
+                if let result = response {
+                   let pictures =  self.processLikesResponse(response: result)
+                    likesCompletionHandler(pictures)
+                    return
+                }
+                likesCompletionHandler(response)
+            })
+        }
+    }
+    
+    func getLikes() {
+        //show loading animation
+        requestLikes {[unowned self] (response) in
+            self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+        }
+    }
+    
+    private func processLikesResponse(response: Any) -> [AlbumContent] {
         let json = JSON(response)
-        let errorType = json["meta"]["error_type"]
-        
-        if (errorType.dictionaryObject != nil) {
-            if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
-                //Just renew the auth token since it is expired
-                
-                self.albumContentViewController?.showErrorMessageAlert(title: "Authorization Required", message: "Please Re-Authorize with Instagram")
-            }
-        } else {
             var likedPhotosURLStringArray = [AlbumContent]()
             let array = self.createMediaObjects(json: json)
             for item in array {
                 let likedPhotos = self.processAlbumContents(album: item)
                 likedPhotosURLStringArray.append(contentsOf: likedPhotos)
             }
-            self.albumContentViewController?.albumPictureURLs = likedPhotosURLStringArray
-        }
-        //                print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
+        return likedPhotosURLStringArray
     }
 }
 
