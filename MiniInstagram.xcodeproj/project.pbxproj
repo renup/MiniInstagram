@@ -26,8 +26,8 @@
 		D712F32D1FE639920035DF8E /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D712F32C1FE639920035DF8E /* ImageHelper.swift */; };
 		D7591C921FE6D94F00FDCAA5 /* videoPlaceHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = D7591C911FE6D94E00FDCAA5 /* videoPlaceHolder.png */; };
 		D7591C951FE6DE9B00FDCAA5 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7591C941FE6DE9B00FDCAA5 /* PictureCell.swift */; };
-		D7591C991FE8AFF600FDCAA5 /* LikesResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = D7591C971FE8AFF600FDCAA5 /* LikesResponse.txt */; };
-		D7591C9A1FE8AFF600FDCAA5 /* MediaResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = D7591C981FE8AFF600FDCAA5 /* MediaResponse.txt */; };
+		D7591C9D1FE8B17400FDCAA5 /* LikesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D7591C9B1FE8B17400FDCAA5 /* LikesResponse.json */; };
+		D7591C9E1FE8B17400FDCAA5 /* MediaResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D7591C9C1FE8B17400FDCAA5 /* MediaResponse.json */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -78,8 +78,8 @@
 		D712F32C1FE639920035DF8E /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		D7591C911FE6D94E00FDCAA5 /* videoPlaceHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = videoPlaceHolder.png; sourceTree = "<group>"; };
 		D7591C941FE6DE9B00FDCAA5 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
-		D7591C971FE8AFF600FDCAA5 /* LikesResponse.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LikesResponse.txt; sourceTree = "<group>"; };
-		D7591C981FE8AFF600FDCAA5 /* MediaResponse.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MediaResponse.txt; sourceTree = "<group>"; };
+		D7591C9B1FE8B17400FDCAA5 /* LikesResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LikesResponse.json; sourceTree = "<group>"; };
+		D7591C9C1FE8B17400FDCAA5 /* MediaResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MediaResponse.json; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -198,8 +198,8 @@
 		D7591C961FE8AFCC00FDCAA5 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				D7591C971FE8AFF600FDCAA5 /* LikesResponse.txt */,
-				D7591C981FE8AFF600FDCAA5 /* MediaResponse.txt */,
+				D7591C9B1FE8B17400FDCAA5 /* LikesResponse.json */,
+				D7591C9C1FE8B17400FDCAA5 /* MediaResponse.json */,
 				D712F3281FE60BE10035DF8E /* placeHolder.png */,
 				D7591C911FE6D94E00FDCAA5 /* videoPlaceHolder.png */,
 			);
@@ -410,13 +410,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7591C991FE8AFF600FDCAA5 /* LikesResponse.txt in Resources */,
-				D7591C9A1FE8AFF600FDCAA5 /* MediaResponse.txt in Resources */,
 				D7591C921FE6D94F00FDCAA5 /* videoPlaceHolder.png in Resources */,
+				D7591C9E1FE8B17400FDCAA5 /* MediaResponse.json in Resources */,
 				D7AE90151FDD4B8F00836C2D /* LaunchScreen.storyboard in Resources */,
 				D712F3291FE60BE10035DF8E /* placeHolder.png in Resources */,
 				D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */,
 				D70563101FE31E490065417C /* Instagram.storyboard in Resources */,
+				D7591C9D1FE8B17400FDCAA5 /* LikesResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
