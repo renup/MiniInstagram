@@ -64,17 +64,26 @@ class MediaCoordinator: NSObject {
         }
     }
     
-    func getMedia() {
+    func requestMedia(_ completionHandler: @escaping completionHandler) {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
-                if response != nil {
-                    let json = JSON(response!)
-                    self.mediaViewController?.mediaAlbum = self.createMediaObjects(json: json)
-                } else {
-                    self.mediaViewController?.mediaAlbum = [Media]() //passing empty array
-                }
-            })
+        APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
+            if response != nil {
+                let json = JSON(response!)
+                let mediaObjectsArray = self.createMediaObjects(json: json)
+                completionHandler(mediaObjectsArray)
+                    return
+            }
+            completionHandler(response)
+        })
         }
+    }
+    
+    func getMedia() {
+        //start loading animation
+        requestMedia {[unowned self] (mediaObjects) in
+            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
+        }
+        //stop loading animation
     }
 
     private func createMediaObjects(json: JSON) -> [Media] {

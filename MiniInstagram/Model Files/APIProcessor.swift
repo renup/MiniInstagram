@@ -76,7 +76,7 @@ class APIProcessor: NSObject {
         //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
 
         if let url = URL(string: finalURLString) {
-            Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
                 completionHandler(response.result.value)
             })
         }
