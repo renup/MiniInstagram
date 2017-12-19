@@ -73,25 +73,7 @@ class MediaCoordinator: NSObject {
         }
         return albumArray
     }
-    
-    fileprivate func processAlbumContents(album: Media) -> [AlbumContent] {
-        var albumImages = [AlbumContent]()
-        if let imagesArray = album.carouselMedia {
-            for subJson in imagesArray {
-                var contentString = ""
-                if subJson["images"].dictionary != nil {
-                    contentString = subJson["images"]["low_resolution"]["url"].stringValue
-                } else if subJson["videos"].dictionary != nil {
-                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
-                }
-                let albumContent = AlbumContent(urlString: contentString)
-                albumImages.append(albumContent)
-            } // end of for loop
-        } //end of if let
-        return albumImages
-    }
-    
-    
+
     func requestMedia(_ completionHandler: @escaping completionHandler) {
         DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
@@ -140,7 +122,10 @@ class MediaCoordinator: NSObject {
             var likedPhotosURLStringArray = [AlbumContent]()
             let array = self.createMediaObjects(json: json)
             for item in array {
-                let likedPhotos = self.processAlbumContents(album: item)
+                var likedPhotos = [AlbumContent]()
+                if let _ = item.carouselMedia {
+                    likedPhotos = item.processAlbumContents()
+                }
                 likedPhotosURLStringArray.append(contentsOf: likedPhotos)
             }
         return likedPhotosURLStringArray
@@ -162,8 +147,6 @@ extension MediaCoordinator: MediaViewControllerDelegate {
     
     
     func userSelectedAnAlbum(media: Media) {
-        let albumPictureURLs = processAlbumContents(album: media)
-    
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
             if albumContentViewController == nil {
                 guard let albumContentVC = AlbumContentsViewController.instantiateControllerFromStoryboard(name: "Instagram", identifier: "AlbumContentsViewController") as? AlbumContentsViewController else {
@@ -171,7 +154,9 @@ extension MediaCoordinator: MediaViewControllerDelegate {
                 }
                 albumContentViewController = albumContentVC
             }
-            albumContentViewController?.albumPictureURLs = albumPictureURLs
+            if let _ = media.carouselMedia {
+                albumContentViewController?.albumPictureURLs = media.processAlbumContents()
+            }
             navVC.pushViewController(albumContentViewController!, animated: true)
         }
     }

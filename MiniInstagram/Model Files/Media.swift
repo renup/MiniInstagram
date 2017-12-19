@@ -29,7 +29,23 @@ struct Media {
         let name = json["user"]["full_name"].stringValue
         userName = name
         carouselMedia = json["carousel_media"].arrayValue
-        print("carousal = \(String(describing: carouselMedia))")
+    }
+    
+    func processAlbumContents() -> [AlbumContent] {
+        var albumImages = [AlbumContent]()
+        if let imagesArray = carouselMedia {
+            for subJson in imagesArray {
+                var contentString = ""
+                if subJson["images"].dictionary != nil {
+                    contentString = subJson["images"]["low_resolution"]["url"].stringValue
+                } else if subJson["videos"].dictionary != nil {
+                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
+                }
+                let albumContent = AlbumContent(urlString: contentString)
+                albumImages.append(albumContent)
+            } // end of for loop
+        } //end of if let
+        return albumImages
     }
 }
 
