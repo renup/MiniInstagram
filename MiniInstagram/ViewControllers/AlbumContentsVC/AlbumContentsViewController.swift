@@ -19,18 +19,6 @@ class AlbumContentsViewController: UITableViewController {
         }
     }
     
-    private func showMediaAbsentMessage() {
-        guard let pictures = albumPictureURLs else {
-            return
-        }
-        if pictures.count == 0 {
-            let alert = UIAlertController(title: "No Likes", message: "There are no Liked pictures by you. Please like some to view them here :)", preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("album nav vc = \(String(describing: self.navigationController))")
@@ -38,6 +26,15 @@ class AlbumContentsViewController: UITableViewController {
             if navVC.viewControllers.count > 1 {
                 self.navigationController?.popViewController(animated: false)
             }
+        }
+    }
+    
+    private func showMediaAbsentMessage() {
+        guard let pictures = albumPictureURLs else {
+            return
+        }
+        if pictures.count < 1 {
+            self.showErrorMessageAlert(title: "No Likes", message: "Something went wrong. Please Make sure you are logged in or You've liked some media")
         }
     }
     

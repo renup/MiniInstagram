@@ -41,11 +41,11 @@ class APIProcessor: NSObject {
         )
 
     let baseURLString = "https://api.instagram.com/v1/"
-    let accessToken = KeychainSwift().get(Constants.accessToken)
     
     //https://api.instagram.com/v1/media/{media-id}/likes
     func likeUnlikeMedia(mediaId: String, like: Bool, completionHandler:@escaping completionHandler) {
-        if let token = accessToken {
+        let token = inquireToken()
+        if token.characters.count > 1 {
             let finalURLString = baseURLString + "media/" + mediaId + "/likes?access_token=" + token
             if let url = URL(string: finalURLString) {
                 if like {
@@ -57,38 +57,40 @@ class APIProcessor: NSObject {
                         completionHandler(response.result.value)
                     })
                 }
-
             }
+        }
+    }
+    
+    private func inquireToken() -> String {
+        if let token = KeychainSwift().get(Constants.accessToken) {
+            return token
+        } else {
+            return ""
         }
     }
     
     func fetchMedia(completionHandler: @escaping completionHandler) {
-        if let token = accessToken {
-            let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
-            print("finalURLString = \(finalURLString)")
-            //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
+        let token = inquireToken()
+        let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
+        print("finalURLString = \(finalURLString)")
+        //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
 
-            if let url = URL(string: finalURLString) {
-                Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
-//                    print("media response: \(response)")
-                    completionHandler(response.result.value)
-                })
-            }
+        if let url = URL(string: finalURLString) {
+            Alamofire.request(url).responseJSON(completionHandler: { (response) in
+                completionHandler(response.result.value)
+            })
         }
     }
     
     func fetchUserLikes(completionHandler: @escaping completionHandler) {
-        guard let token = accessToken else {
-            return
-        }
-        
+        let token = inquireToken()
         //https://api.instagram.com/v1/users/self/media/liked?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
         let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(String(describing: token))"
         #if debug
             print("finalURLString = \(finalURLString)")
             print("token = \(String(describing: token))")
         #endif
-
+        // here with no validate() in alamofire request, we will receive error in response too
         if let url = URL(string: finalURLString) {
             Alamofire.request(url).responseJSON(completionHandler:{(response) in
                 completionHandler(response.result.value)
@@ -103,7 +105,7 @@ extension APIProcessor {
     //https://www.instagram.com/oauth/authorize/?client_id=e2728b29aa6345299785d2eebd1c9f27&redirect_uri=https://www.23andme.com/&response_type=token&scope=likes+basic+public_content&state=R1prYujhoHphUIlnSy2h
     
     // MARK: Instagram
-    func doOAuthInstagram(_ oauthswift: OAuth2Swift){
+    func doOAuthInstagram(_ oauthswift: OAuth2Swift, completionHandler: @escaping completionHandler){
         let state = generateState(withLength: 20)
         
         let _ = oauthswift.authorize(
@@ -115,10 +117,10 @@ extension APIProcessor {
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
+                completionHandler(parameters)
                 self.getUserInfoInstagram(oauthswift)
             },
             failure: { error in
-                
                 print(error.description)
         })
     }

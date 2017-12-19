@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import OAuthSwift
+import KeychainSwift
 
 protocol LoginViewControllerDelegate: class {
     func loginLogoutButtonTapped()
 }
 
-class LoginViewController: OAuthViewController {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginLogoutButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
@@ -29,6 +29,11 @@ class LoginViewController: OAuthViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateLoginLogoutButton()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,7 +42,25 @@ class LoginViewController: OAuthViewController {
     @IBAction func loginLogoutButtonClicked(_ sender: Any) {
         delegate?.loginLogoutButtonTapped()
     }
-   
+    
+    private func isUserLoggedIn() -> Bool {
+        var loggedIn = false
+        if let token =  KeychainSwift().get(Constants.accessToken) {
+            if token.characters.count > 1 {
+                loggedIn = true
+            }
+        }
+        return loggedIn
+    }
+    
+    func updateLoginLogoutButton() {
+        if isUserLoggedIn() {
+            loginLogoutButton.setTitle("Logout", for: .normal)
+        } else {
+            loginLogoutButton.setTitle("Login with Instagram", for: .normal)
+        }
+    }
+    
 }
 
 

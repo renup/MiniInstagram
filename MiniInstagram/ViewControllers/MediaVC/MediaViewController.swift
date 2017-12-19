@@ -15,9 +15,9 @@ protocol MediaViewControllerDelegate: class {
 }
 
 class MediaViewController: UITableViewController {
-    
     var mediaAlbum: [Media]? {
         didSet {
+            showMediaAbsentMessage()
             tableView.reloadData()
         }
     }
@@ -25,6 +25,15 @@ class MediaViewController: UITableViewController {
     weak var delegate: MediaViewControllerDelegate? {
         get{ return value }
         set { value = newValue }
+    }
+    
+    private func showMediaAbsentMessage() {
+        guard let media = mediaAlbum else {
+            return
+        }
+        if media.count < 1 {
+           self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in")
+        }
     }
     
     //MARK: dataSource methods

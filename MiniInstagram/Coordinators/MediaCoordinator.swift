@@ -70,13 +70,13 @@ class MediaCoordinator: NSObject {
                 if response != nil {
                     let json = JSON(response!)
                     self.mediaViewController?.mediaAlbum = self.createMediaObjects(json: json)
+                } else {
+                    self.mediaViewController?.mediaAlbum = [Media]() //passing empty array
                 }
-                
-                print("Printing media json response in mediaCoordinator : \(String(describing: response))")
             })
         }
     }
-    
+
     private func createMediaObjects(json: JSON) -> [Media] {
         var albumArray = [Media]()
         let array = json["data"] //albums array
@@ -105,38 +105,38 @@ class MediaCoordinator: NSObject {
     }
     
     func getLikes() {
-        DispatchQueue.global(qos: .utility).async {            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
-                
-                let json = JSON(response!)
-                let errorType = json["meta"]["error_type"]
-                
-                if (errorType.dictionaryObject != nil) {
-                    if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
-                        //Just renew the auth token since it is expired
-                        self.promptUserToReAuthorizeWithInstagram()
-                    }
+        DispatchQueue.global(qos: .utility).async {
+            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
+                if let result = response {
+                    self.processLikesResponse(response: result)
                 } else {
-                    var likedPhotosURLStringArray = [AlbumContent]()
-                    let array = self.createMediaObjects(json: json)
-                    for item in array {
-                        let likedPhotos = self.processAlbumContents(album: item)
-                        likedPhotosURLStringArray.append(contentsOf: likedPhotos)
-                    }
-                    self.albumContentViewController?.albumPictureURLs = likedPhotosURLStringArray
+                    self.albumContentViewController?.albumPictureURLs = [AlbumContent]() //passing empty array to show the alert
                 }
-//                print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
             })
         }
     }
     
-    //In case the access_token is missing or if the permission to access media is invalid, we need to prompt user to reauthorize
-    private func promptUserToReAuthorizeWithInstagram() {
-       let alert = UIAlertController(title: "Authorization Required", message: "Please Re-Authorize with Instagram", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            self.delegate?.needToRefreshAuthorizingWithInstagram()
-        }))
-        mediaViewController?.present(alert, animated: true, completion: nil)
-    }  
+    private func processLikesResponse(response: Any) {
+        let json = JSON(response)
+        let errorType = json["meta"]["error_type"]
+        
+        if (errorType.dictionaryObject != nil) {
+            if errorType == "OAuthPermissionsException" || errorType == "OAuthParameterException" || errorType == "OAuthAccessTokenException" {
+                //Just renew the auth token since it is expired
+                
+                self.albumContentViewController?.showErrorMessageAlert(title: "Authorization Required", message: "Please Re-Authorize with Instagram")
+            }
+        } else {
+            var likedPhotosURLStringArray = [AlbumContent]()
+            let array = self.createMediaObjects(json: json)
+            for item in array {
+                let likedPhotos = self.processAlbumContents(album: item)
+                likedPhotosURLStringArray.append(contentsOf: likedPhotos)
+            }
+            self.albumContentViewController?.albumPictureURLs = likedPhotosURLStringArray
+        }
+        //                print("Printing Likes json response in mediaCoordinator : \(String(describing: response))")
+    }
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
