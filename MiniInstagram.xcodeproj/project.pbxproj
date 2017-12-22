@@ -166,6 +166,7 @@
 		D70563091FE1F2EA0065417C /* Helper Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D70563071FE0D32A0065417C /* Constants.swift */,
 				D705630A1FE1F2FA0065417C /* UIViewControllerHelper.swift */,
 				D712F32C1FE639920035DF8E /* ImageHelper.swift */,
 			);
@@ -245,7 +246,6 @@
 				D7AE90161FDD4B8F00836C2D /* Info.plist */,
 				D7AE90391FDD4FB500836C2D /* Storyboards */,
 				D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */,
-				D70563071FE0D32A0065417C /* Constants.swift */,
 			);
 			path = MiniInstagram;
 			sourceTree = "<group>";
@@ -282,10 +282,10 @@
 		D7AE903C1FDD515F00836C2D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				D70563131FE321F60065417C /* InstagramTabBarController.swift */,
 				D7591C931FE6DE7400FDCAA5 /* AlbumContentsVC */,
 				D712F3251FE6089D0035DF8E /* MediaVC */,
 				D70563001FE0BBBB0065417C /* Login Logout */,
-				D70563131FE321F60065417C /* InstagramTabBarController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

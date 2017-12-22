@@ -32,10 +32,10 @@ class APIProcessor: NSObject {
     
     // create basic string values needed for Oauth to Instagram service
     lazy var oauthswift = OAuth2Swift(
-            consumerKey:    "e2728b29aa6345299785d2eebd1c9f27",
-            consumerSecret: "ed8b307cc31b45d892e2263280225356",
-            authorizeUrl:   "https://api.instagram.com/oauth/authorize",
-            responseType:   "token"
+            consumerKey:    Constants.consumerKey,
+            consumerSecret: Constants.consumerSecret,
+            authorizeUrl:   Constants.authorizeURL,
+            responseType:   Constants.responseType
         )
 
     let baseURLString = "https://api.instagram.com/v1/"
