@@ -145,7 +145,6 @@ extension MediaCoordinator: MediaViewControllerDelegate {
         }
     }
     
-    
     func userSelectedAnAlbum(media: Media) {
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
             if albumContentViewController == nil {

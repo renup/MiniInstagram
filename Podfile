@@ -9,7 +9,7 @@ target 'MiniInstagram' do
 	pod 'OAuthSwift'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
-    pod 'KeychainSwift'
+    	pod 'KeychainSwift'
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
@@ -17,7 +17,8 @@ target 'MiniInstagram' do
     	pod 'Nimble'
     	pod 'Mockingjay'
 	pod 'SwiftyJSON'
- 
+    	pod 'KeychainSwift'
+
    end
 
   target 'MiniInstagramUITests' do
