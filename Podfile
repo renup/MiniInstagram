@@ -15,7 +15,9 @@ target 'MiniInstagram' do
     inherit! :search_paths
 	    pod 'Quick'
     	pod 'Nimble'
-    	pod 'Mockingjay' 
+    	pod 'Mockingjay'
+	pod 'SwiftyJSON'
+ 
    end
 
   target 'MiniInstagramUITests' do
