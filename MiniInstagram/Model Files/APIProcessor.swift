@@ -30,29 +30,33 @@ class APIProcessor: NSObject {
         preferredMemoryUsageAfterPurge: UInt64(60).megabytes()
     )
     
+    // create basic string values needed for Oauth to Instagram service
     lazy var oauthswift = OAuth2Swift(
             consumerKey:    "e2728b29aa6345299785d2eebd1c9f27",
             consumerSecret: "ed8b307cc31b45d892e2263280225356",
             authorizeUrl:   "https://api.instagram.com/oauth/authorize",
             responseType:   "token"
-            // or
-            // accessTokenUrl: "https://api.instagram.com/oauth/access_token",
-            // responseType:   "code"
         )
 
     let baseURLString = "https://api.instagram.com/v1/"
     
-    //https://api.instagram.com/v1/media/{media-id}/likes
+    /// This method is called to like/unlike a media based on bool value passed
+    ///
+    /// - Parameters:
+    ///   - mediaId: mediaID for media to be liked/unliked
+    ///   - like: bool value to indicate where the media should be liked or disliked
+    ///   - completionHandler: completion handler for liking/disliking
     func likeUnlikeMedia(mediaId: String, like: Bool, completionHandler:@escaping completionHandler) {
         let token = inquireToken()
         if token.characters.count > 1 {
+            // Prepare base URL for liking/disliking the media
             let finalURLString = baseURLString + "media/" + mediaId + "/likes?access_token=" + token
             if let url = URL(string: finalURLString) {
-                if like {
+                if like { // check bool flag to decide if media should be liked
                     Alamofire.request(url, method: .post).responseJSON(completionHandler: { (response) in
                         completionHandler(response.result.value)
                     })
-                } else {
+                } else {// check bool flag to decide if media should be disliked
                     Alamofire.request(url, method: .delete).responseJSON(completionHandler: { (response) in
                         completionHandler(response.result.value)
                     })
@@ -61,6 +65,9 @@ class APIProcessor: NSObject {
         }
     }
     
+    /// Checks to see if oAuth token exists in keychain storage
+    ///
+    /// - Returns: returns the oAuth token or empty string
     private func inquireToken() -> String {
         if let token = KeychainSwift().get(Constants.accessToken) {
             return token
@@ -69,12 +76,15 @@ class APIProcessor: NSObject {
         }
     }
     
+    /// Fetches media posted by current user
+    ///
+    /// - Parameter completionHandler: handles completion for network call
     func fetchMedia(completionHandler: @escaping completionHandler) {
         let token = inquireToken()
         let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
         print("finalURLString = \(finalURLString)")
-        //https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
 
+        //
         if let url = URL(string: finalURLString) {
             Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
                 completionHandler(response.result.value)
@@ -84,7 +94,7 @@ class APIProcessor: NSObject {
     
     func fetchUserLikes(completionHandler: @escaping completionHandler) {
         let token = inquireToken()
-        //https://api.instagram.com/v1/users/self/media/liked?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa
+
         let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(String(describing: token))"
         #if debug
             print("finalURLString = \(finalURLString)")
@@ -100,11 +110,11 @@ class APIProcessor: NSObject {
 }
 
 
+
+// MARK: - This extension handle getting the oAuth Token
 extension APIProcessor {
     
-    //https://www.instagram.com/oauth/authorize/?client_id=e2728b29aa6345299785d2eebd1c9f27&redirect_uri=https://www.23andme.com/&response_type=token&scope=likes+basic+public_content&state=R1prYujhoHphUIlnSy2h
     
-    // MARK: Instagram
     func doOAuthInstagram(_ oauthswift: OAuth2Swift, completionHandler: @escaping completionHandler){
         let state = generateState(withLength: 20)
         
@@ -114,19 +124,26 @@ extension APIProcessor {
                 //reset accessToken
                 KeychainSwift().delete(Constants.accessToken)
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
+                #if debug
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
+                #endif
+                    
                 completionHandler(parameters)
                 self.getUserInfoInstagram(oauthswift)
             },
             failure: { error in
+                #if debug
                 print(error.description)
+                #endif
         })
     }
     
-    //    https://api.instagram.com/v1/users/self/?access_token=ACCESS-TOKEN
     
+    /// Gets user's information from Instagram
+    ///
+    /// - Parameter oauthswift: oauth swift object with needed strings for getting token
     func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
         var url = ""
         if let token = KeychainSwift().get(Constants.accessToken) {
@@ -136,18 +153,20 @@ extension APIProcessor {
             url = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
         }
         
-        //"https://api.instagram.com/v1/users/self/?access_token=6696627282.e2728b2.1c06860f5a5a4633a776c7eadc311c32"
-        //        let url :String = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
-        
         let parameters :Dictionary = Dictionary<String, AnyObject>()
         let _ = oauthswift.client.get(
             url, parameters: parameters,
             success: {(response) in
                 let jsonDict = try? response.jsonObject()
+                #if debug
                 print("jsonDict UserInfo= \(jsonDict as Any)")
+                #endif
+
         },
             failure: { error in
+                #if debug
                 print(error)
+                #endif
         }
         )
     }
