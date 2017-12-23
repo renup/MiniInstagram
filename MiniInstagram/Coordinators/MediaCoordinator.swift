@@ -75,7 +75,7 @@ class MediaCoordinator: NSObject {
     }
 
     func requestMedia(_ completionHandler: @escaping completionHandler) {
-        DispatchQueue.global(qos: .utility).async {
+//        DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchMedia(completionHandler: {(response) in
                 if response != nil {
                     let json = JSON(response!)
@@ -85,7 +85,7 @@ class MediaCoordinator: NSObject {
                 }
                 completionHandler(response)
             })
-        }
+        //}
     }
     
     private func getMedia() {
