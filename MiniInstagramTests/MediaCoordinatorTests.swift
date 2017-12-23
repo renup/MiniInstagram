@@ -31,7 +31,7 @@ class MediaCoordinatorTests: QuickSpec {
                 var media: Media?                
                 
                 context("FetchMedia starts here") {
-                  beforeEach {
+                  //beforeEach {
                     if let token = APIProcessor.shared.inquireToken() {
                         let _ = self.stub(urlString: "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(token)", jsonFileName: "MediaResponse")
                         mediaCoordinator.requestMedia({ (result) in
@@ -48,7 +48,7 @@ class MediaCoordinatorTests: QuickSpec {
                         })
                     }
                   
-                    } //end of before each
+                   // } //end of before each
                     
                     it("returns json response array") {
                         expect(response).toEventuallyNot(beNil(), timeout: 20)
