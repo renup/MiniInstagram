@@ -106,38 +106,6 @@ class APIProcessor: NSObject {
                 completionHandler(response.result.value)
         })
     }
-}
-
-
-// MARK: - This extension handle getting the oAuth Token
-extension APIProcessor {
-    
-    func doOAuthInstagram(_ oauthswift: OAuth2Swift, completionHandler: @escaping completionHandler){
-        let state = generateState(withLength: 20)
-        
-        let _ = oauthswift.authorize(
-            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
-            success: {credential, response, parameters in
-                //reset accessToken
-                KeychainSwift().delete(Constants.accessToken)
-                KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
-                #if DEBUG
-                print("response = \(String(describing: response))")
-                print("credential = \(String(describing: credential))")
-                print("parameters = \(String(describing: parameters))")
-                #endif
-                    
-                completionHandler(parameters)
-            },
-            failure: { error in
-                #if DEBUG
-                print(error.description)
-                #endif
-        })
-    }
-}
-
-extension APIProcessor {
     
     /// Fetches Images for a Media
     ///
@@ -175,5 +143,33 @@ extension APIProcessor {
     func cachedImage(for url: String) -> Image? {
         return imageCache.image(withIdentifier: url)
     }
+   
+}
 
+// MARK: - This extension handle getting the oAuth Token
+extension APIProcessor {
+    
+    func doOAuthInstagram(_ oauthswift: OAuth2Swift, completionHandler: @escaping completionHandler){
+        let state = generateState(withLength: 20)
+        
+        let _ = oauthswift.authorize(
+            withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
+            success: {credential, response, parameters in
+                //reset accessToken
+                KeychainSwift().delete(Constants.accessToken)
+                KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
+                #if DEBUG
+                print("response = \(String(describing: response))")
+                print("credential = \(String(describing: credential))")
+                print("parameters = \(String(describing: parameters))")
+                #endif
+                    
+                completionHandler(parameters)
+            },
+            failure: { error in
+                #if DEBUG
+                print(error.description)
+                #endif
+        })
+    }
 }
