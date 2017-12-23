@@ -76,7 +76,7 @@ class MediaCoordinator: NSObject {
 
     func requestMedia(_ completionHandler: @escaping completionHandler) {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchMedia(completionHandler: {[unowned self] (response) in
+            APIProcessor.shared.fetchMedia(completionHandler: {(response) in
                 if response != nil {
                     let json = JSON(response!)
                     let mediaObjectsArray = self.createMediaObjects(json: json)
@@ -100,8 +100,7 @@ class MediaCoordinator: NSObject {
 
     func requestLikes(_ likesCompletionHandler: @escaping completionHandler) {
         DispatchQueue.global(qos: .utility).async {
-            APIProcessor.shared.fetchUserLikes(completionHandler: {[unowned self] (response) in
-
+            APIProcessor.shared.fetchUserLikes(completionHandler: {(response) in
                 if let result = response {
                    let pictures =  self.processLikesResponse(response: result)
                     likesCompletionHandler(pictures)
@@ -139,7 +138,7 @@ class MediaCoordinator: NSObject {
 extension MediaCoordinator: MediaViewControllerDelegate {
 
     private func useLikeResponseToUpdateUI(response: Any?, like: Bool) {
-        DispatchQueue.main.async { [unowned self] in 
+        DispatchQueue.main.async {
             if response != nil {
                 self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
             } else { //handle failure of likes/unlike response
