@@ -47,6 +47,13 @@ class APIProcessor: NSObject {
        return baseURLString + "media/" + id + "/likes?access_token=" + token
     }
     
+    func isUserLoggedIn() -> Bool {
+        guard (inquireToken() != nil) else {
+            return false
+        }
+        return true
+    }
+    
     func likeMedia(mediaId: String, completionHandler: @escaping completionHandler) {
         guard let finalUrlString = constructLikesUnlikesURL(id: mediaId) else {
             completionHandler(nil)

@@ -43,15 +43,8 @@ class LoginViewController: UIViewController {
         delegate?.loginLogoutButtonTapped()
     }
     
-    private func isUserLoggedIn() -> Bool {
-        guard (APIProcessor.shared.inquireToken() != nil) else {
-            return false
-        }
-        return true
-    }
-    
     func updateLoginLogoutButton() {
-        if isUserLoggedIn() {
+        if APIProcessor.shared.isUserLoggedIn() {
             loginLogoutButton.setTitle("Logout", for: .normal)
         } else {
             loginLogoutButton.setTitle("Login with Instagram", for: .normal)

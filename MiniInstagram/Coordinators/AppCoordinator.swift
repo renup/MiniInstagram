@@ -28,7 +28,7 @@ class AppCoordinator: NSObject {
         self.tabVC = tabVC
         self.tabVC?.instagramDelegate = self
         
-        if KeychainSwift().get(Constants.accessToken) != nil {
+        if APIProcessor.shared.isUserLoggedIn() {
             tabVC.selectedIndex = 1
             initiateMediaCoordinator(navigationVC)
         } else {
