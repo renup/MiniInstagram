@@ -12,6 +12,8 @@
 import Quick
 import Nimble
 import Mockingjay
+import SwiftyJSON
+import KeychainSwift
 
 @testable import MiniInstagram
 
@@ -24,13 +26,13 @@ class MediaCoordinatorTests: QuickSpec {
             let navigationVC = UINavigationController()
             let mediaCoordinator = MediaCoordinator(navigationVC)
             
-            describe("APICalls") {
+            describe("APICalls starts here") {
                 var response: [Media]?
-                var media: Media?
+                var media: Media?                
                 
-                context("FetchMedia") {
+                context("FetchMedia starts here") {
                     beforeEach {
-                        let _ = self.stub(urlString: "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(APIProcessor.shared.inquireToken())", jsonFileName: "MediaResponse")
+                        let _ = self.stub(urlString: "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(String(describing: APIProcessor.shared.inquireToken()))", jsonFileName: "MediaResponse")
                         mediaCoordinator.requestMedia({ (result) in
                             guard result != nil else {
                                 return
