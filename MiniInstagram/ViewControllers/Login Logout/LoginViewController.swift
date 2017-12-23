@@ -44,13 +44,10 @@ class LoginViewController: UIViewController {
     }
     
     private func isUserLoggedIn() -> Bool {
-        var loggedIn = false
-        if let token =  KeychainSwift().get(Constants.accessToken) {
-            if token.characters.count > 1 {
-                loggedIn = true
-            }
+        guard (APIProcessor.shared.inquireToken() != nil) else {
+            return false
         }
-        return loggedIn
+        return true
     }
     
     func updateLoginLogoutButton() {

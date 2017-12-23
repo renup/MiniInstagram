@@ -63,15 +63,16 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
     }
     
     private func logOutButtonPressed() {
-        KeychainSwift().delete(Constants.accessToken)
-        loginLogoutVC?.updateLoginLogoutButton()
+        DispatchQueue.main.async {[unowned self] in
+            KeychainSwift().delete(Constants.accessToken)
+            self.loginLogoutVC?.updateLoginLogoutButton()
+        }
     }
     
     func loginLogoutButtonTapped() {
-        if let token = KeychainSwift().get(Constants.accessToken) {
-            if token.characters.count > 1 { //User is logined and Logout button is pressed
-               logOutButtonPressed()
-            }
+        if let _ = APIProcessor.shared.inquireToken() {
+          //User is logined and Logout button is pressed
+           logOutButtonPressed()
         } else { //Login button is pressed
            loginButtonPressed()
         }
