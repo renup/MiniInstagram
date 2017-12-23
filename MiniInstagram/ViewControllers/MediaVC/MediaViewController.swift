@@ -27,6 +27,8 @@ class MediaViewController: UITableViewController {
         set { value = newValue }
     }
     
+    lazy var likeUnlikeButtonCell = MediaCell()
+    
     private func showMediaAbsentMessage() {
         if mediaAlbum == nil {
             self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in")
@@ -77,6 +79,7 @@ class MediaViewController: UITableViewController {
     @IBAction func likeUnlikeButtonClicked(_ sender: Any) {
         let cell = getCell(sender)
         if let row = cell {
+            likeUnlikeButtonCell = row
             let indexPath = tableView.indexPath(for: row)
             guard let album = mediaAlbum, let indxPath = indexPath else {
                 return
@@ -90,11 +93,11 @@ class MediaViewController: UITableViewController {
         }
     }
     
-    func updateLikeUnlikeButtonAppearance(like: Bool, cell: MediaCell) {
+    func updateLikeUnlikeButtonAppearance(like: Bool) {
         if like {
-            cell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
+            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
         } else {
-            cell.likeUnlikeButton.layer.backgroundColor = UIColor.blue.cgColor
+            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.blue.cgColor
         }
     }
     

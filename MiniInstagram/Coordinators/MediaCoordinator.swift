@@ -133,18 +133,38 @@ class MediaCoordinator: NSObject {
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
+    
+    private func useLikeResponseToUpdateUI(response: JSON, like: Bool) {
+        if response["meta"]["code"] == 200 {
+            mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
+        }
+    }
     func userClickedLikeUnlikeButton(media: Media, like: Bool, cell: MediaCell) {
         if let id = media.mediaId {
-            APIProcessor.shared.likeUnlikeMedia(mediaId: id, like: like) {[unowned self] (response) in
-                let json = JSON(response!)
+            if like {
+                APIProcessor.shared.likeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
+                    if let result = response {
+                        let json = JSON(result)
+                        self.useLikeResponseToUpdateUI(response: json, like: like)
+                    } else { //handle failure of likes/unlike response
+                        
+                    }
+                })
                 
-                if json["meta"]["code"] == 200 {
-                    self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like, cell: cell)
-                }
+            } else {
+                APIProcessor.shared.unlikeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
+                    if let result = response {
+                        let json = JSON(result)
+                        self.useLikeResponseToUpdateUI(response: json, like: like)
+                    } else { //handle failure of likes/unlike response
+                        
+                    }
+                })
             }
         }
     }
     
+
     func userSelectedAnAlbum(media: Media) {
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
             if albumContentViewController == nil {

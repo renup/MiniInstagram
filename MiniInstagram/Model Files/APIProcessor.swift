@@ -40,29 +40,23 @@ class APIProcessor: NSObject {
 
     let baseURLString = "https://api.instagram.com/v1/"
     
-    /// This method is called to like/unlike a media based on bool value passed
-    ///
-    /// - Parameters:
-    ///   - mediaId: mediaID for media to be liked/unliked
-    ///   - like: bool value to indicate where the media should be liked or disliked
-    ///   - completionHandler: completion handler for liking/disliking
-    func likeUnlikeMedia(mediaId: String, like: Bool, completionHandler:@escaping completionHandler) {
-        let token = inquireToken()
-        if token.characters.count > 1 {
-            // Prepare base URL for liking/disliking the media
-            let finalURLString = baseURLString + "media/" + mediaId + "/likes?access_token=" + token
-            if let url = URL(string: finalURLString) {
-                if like { // check bool flag to decide if media should be liked
-                    Alamofire.request(url, method: .post).responseJSON(completionHandler: { (response) in
-                        completionHandler(response.result.value)
-                    })
-                } else {// check bool flag to decide if media should be disliked
-                    Alamofire.request(url, method: .delete).responseJSON(completionHandler: { (response) in
-                        completionHandler(response.result.value)
-                    })
-                }
-            }
-        }
+    private func constructLikesURL(id: String) -> String {
+        return baseURLString + "media/" + id + "/likes?access_token=" + inquireToken()
+    }
+    
+    func likeMedia(mediaId: String, completionHandler: @escaping completionHandler) {
+        let finalURLString = constructLikesURL(id: mediaId)
+        Alamofire.request(finalURLString, method: .post).validate().responseJSON(completionHandler: { (response) in
+            completionHandler(response.result.value)
+        })
+    }
+    
+    func unlikeMedia(mediaId: String, completionHandler: @escaping completionHandler) {
+        let finalURLString = constructLikesURL(id: mediaId)
+
+        Alamofire.request(finalURLString, method: .delete).validate().responseJSON(completionHandler: { (response) in
+            completionHandler(response.result.value)
+        })
     }
     
     /// Checks to see if oAuth token exists in keychain storage
