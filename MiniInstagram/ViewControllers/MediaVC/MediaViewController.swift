@@ -31,15 +31,8 @@ class MediaViewController: UITableViewController {
     
     private func showMediaAbsentMessage() {
         if mediaAlbum == nil {
-            self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in")
+            self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in or you have internet connectivity")
         }
-        
-//        guard let media = mediaAlbum else {
-//            return
-//        }
-//        if media.count < 1 {
-//           self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in")
-//        }
     }
     
     //MARK: dataSource methods

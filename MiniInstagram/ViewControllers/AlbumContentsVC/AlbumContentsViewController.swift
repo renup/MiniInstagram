@@ -34,7 +34,7 @@ class AlbumContentsViewController: UITableViewController {
             return
         }
         if pictures.count < 1 {
-            self.showErrorMessageAlert(title: "No Likes", message: "Something went wrong. Please Make sure you are logged in or You've liked some media")
+            self.showErrorMessageAlert(title: "No Likes", message: "Something went wrong. Please Make sure you are logged in, have internet connectivity or You've liked some media")
         }
     }
     
