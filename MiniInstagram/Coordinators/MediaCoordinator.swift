@@ -139,25 +139,23 @@ class MediaCoordinator: NSObject {
 extension MediaCoordinator: MediaViewControllerDelegate {
 
     private func useLikeResponseToUpdateUI(response: Any?, like: Bool) {
-        if response != nil {
-            self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
-        } else { //handle failure of likes/unlike response
-            self.mediaViewController?.informUserAboutLikeUnlikeFailure()
+        DispatchQueue.main.async { [unowned self] in 
+            if response != nil {
+                self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
+            } else { //handle failure of likes/unlike response
+                self.mediaViewController?.informUserAboutLikeUnlikeFailure()
+            }
         }
     }
     func userClickedLikeUnlikeButton(media: Media, like: Bool) {
         if let id = media.mediaId {
             if like {
                 APIProcessor.shared.likeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    DispatchQueue.main.async {
-                        self.useLikeResponseToUpdateUI(response: response, like: like)
-                    }
+                    self.useLikeResponseToUpdateUI(response: response, like: like)
                 })
             } else { //fails because of no internet or call failed for various reasons
                 APIProcessor.shared.unlikeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    DispatchQueue.main.async {
-                        self.useLikeResponseToUpdateUI(response: response, like: like)
-                    }
+                    self.useLikeResponseToUpdateUI(response: response, like: like)
                 })
             }
         }
