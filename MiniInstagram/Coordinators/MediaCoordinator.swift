@@ -91,7 +91,9 @@ class MediaCoordinator: NSObject {
     private func getMedia() {
         //start loading animation
         requestMedia {[unowned self] (mediaObjects) in
-            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
+            DispatchQueue.main.async {
+                self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
+            }
         }
         //stop loading animation
     }
@@ -113,7 +115,9 @@ class MediaCoordinator: NSObject {
     func getLikes() {
         //show loading animation
         requestLikes {[unowned self] (response) in
-            self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+            DispatchQueue.main.async {
+                self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+            }
         }
     }
     
@@ -145,11 +149,15 @@ extension MediaCoordinator: MediaViewControllerDelegate {
         if let id = media.mediaId {
             if like {
                 APIProcessor.shared.likeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    self.useLikeResponseToUpdateUI(response: response, like: like)
+                    DispatchQueue.main.async {
+                        self.useLikeResponseToUpdateUI(response: response, like: like)
+                    }
                 })
             } else { //fails because of no internet or call failed for various reasons
                 APIProcessor.shared.unlikeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    self.useLikeResponseToUpdateUI(response: response, like: like)
+                    DispatchQueue.main.async {
+                        self.useLikeResponseToUpdateUI(response: response, like: like)
+                    }
                 })
             }
         }

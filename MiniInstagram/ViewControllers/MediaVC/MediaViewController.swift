@@ -17,8 +17,8 @@ protocol MediaViewControllerDelegate: class {
 class MediaViewController: UITableViewController {
     var mediaAlbum: [Media]? {
         didSet {
-            showMediaAbsentMessage()
             tableView.reloadData()
+            showMediaAbsentMessage()
         }
     }
     var value: MediaViewControllerDelegate?
