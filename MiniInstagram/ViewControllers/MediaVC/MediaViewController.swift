@@ -87,11 +87,7 @@ class MediaViewController: UITableViewController {
     }
     
     func informUserAboutLikeUnlikeFailure() {
-        
-        let alert = UIAlertController(title: "Request Failed", message: "Something went wrong. Please try liking/unliking later", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        showErrorMessageAlert(title: "Request Failed", message: "Something went wrong. Please try liking/unliking later")
     }
     
     func updateLikeUnlikeButtonAppearance(like: Bool) {
