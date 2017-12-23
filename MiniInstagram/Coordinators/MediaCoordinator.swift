@@ -133,38 +133,28 @@ class MediaCoordinator: NSObject {
 }
 
 extension MediaCoordinator: MediaViewControllerDelegate {
-    
-    private func useLikeResponseToUpdateUI(response: JSON, like: Bool) {
-        if response["meta"]["code"] == 200 {
-            mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
+
+    private func useLikeResponseToUpdateUI(response: Any?, like: Bool) {
+        if response != nil {
+            self.mediaViewController?.updateLikeUnlikeButtonAppearance(like: like)
+        } else { //handle failure of likes/unlike response
+            self.mediaViewController?.informUserAboutLikeUnlikeFailure()
         }
     }
-    func userClickedLikeUnlikeButton(media: Media, like: Bool, cell: MediaCell) {
+    func userClickedLikeUnlikeButton(media: Media, like: Bool) {
         if let id = media.mediaId {
             if like {
                 APIProcessor.shared.likeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    if let result = response {
-                        let json = JSON(result)
-                        self.useLikeResponseToUpdateUI(response: json, like: like)
-                    } else { //handle failure of likes/unlike response
-                        
-                    }
+                    self.useLikeResponseToUpdateUI(response: response, like: like)
                 })
-                
-            } else {
+            } else { //fails because of no internet or call failed for various reasons
                 APIProcessor.shared.unlikeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
-                    if let result = response {
-                        let json = JSON(result)
-                        self.useLikeResponseToUpdateUI(response: json, like: like)
-                    } else { //handle failure of likes/unlike response
-                        
-                    }
+                    self.useLikeResponseToUpdateUI(response: response, like: like)
                 })
             }
         }
     }
     
-
     func userSelectedAnAlbum(media: Media) {
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
             if albumContentViewController == nil {

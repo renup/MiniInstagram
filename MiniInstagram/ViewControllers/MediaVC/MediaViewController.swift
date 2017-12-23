@@ -11,7 +11,7 @@ import UIKit
 
 protocol MediaViewControllerDelegate: class {
     func userSelectedAnAlbum(media: Media)
-    func userClickedLikeUnlikeButton(media: Media, like: Bool, cell: MediaCell)
+    func userClickedLikeUnlikeButton(media: Media, like: Bool)    
 }
 
 class MediaViewController: UITableViewController {
@@ -86,11 +86,18 @@ class MediaViewController: UITableViewController {
             }
             
             if row.likeUnlikeButton.layer.backgroundColor == UIColor.red.cgColor {
-                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: false, cell: row)
+                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: false)
             } else {
-                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: true, cell: row)
+                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: true)
             }
         }
+    }
+    
+    func informUserAboutLikeUnlikeFailure() {
+        let alert = UIAlertController(title: "Request Failed", message: "Something went wrong. Please try liking/unliking later", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func updateLikeUnlikeButtonAppearance(like: Bool) {

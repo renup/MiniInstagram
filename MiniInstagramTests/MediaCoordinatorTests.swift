@@ -30,7 +30,7 @@ class MediaCoordinatorTests: QuickSpec {
                 
                 context("FetchMedia") {
                     beforeEach {
-                        let _ = self.stub(urlString: "https://api.instagram.com/v1/users/self/media/recent/?access_token=6696627282.e2728b2.d635d412d63b4b2f95f44296262108aa", jsonFileName: "MediaResponse")
+                        let _ = self.stub(urlString: "https://api.instagram.com/v1/users/self/media/recent/?access_token=\(APIProcessor.shared.inquireToken())", jsonFileName: "MediaResponse")
                         mediaCoordinator.requestMedia({ (result) in
                             guard result != nil else {
                                 return
