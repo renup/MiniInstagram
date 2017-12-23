@@ -81,6 +81,12 @@ class APIProcessor: NSObject {
     /// - Parameter completionHandler: handles completion for network call
     func fetchMedia(completionHandler: @escaping completionHandler) {
         let token = inquireToken()
+//        if token == "" then{
+//            return "NO_TOKEN_FOUND_ERROR"
+//        }
+//        else{
+//
+//        }
         let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
         print("finalURLString = \(finalURLString)")
 
@@ -114,7 +120,6 @@ class APIProcessor: NSObject {
 // MARK: - This extension handle getting the oAuth Token
 extension APIProcessor {
     
-    
     func doOAuthInstagram(_ oauthswift: OAuth2Swift, completionHandler: @escaping completionHandler){
         let state = generateState(withLength: 20)
         
@@ -131,7 +136,7 @@ extension APIProcessor {
                 #endif
                     
                 completionHandler(parameters)
-                self.getUserInfoInstagram(oauthswift)
+//                self.getUserInfoInstagram(oauthswift)
             },
             failure: { error in
                 #if debug
@@ -144,6 +149,8 @@ extension APIProcessor {
     /// Gets user's information from Instagram
     ///
     /// - Parameter oauthswift: oauth swift object with needed strings for getting token
+    
+    //TODO: take out this method
     func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
         var url = ""
         if let token = KeychainSwift().get(Constants.accessToken) {
@@ -174,19 +181,19 @@ extension APIProcessor {
 
 extension APIProcessor {
     
-    /// Fetches Images for a restaurant
+    /// Fetches Images for a Media
     ///
     /// - Parameters:
-    ///   - imageURLString: restaurant Image URL String
+    ///   - imageURLString: Media Image URL String
     ///   - imageDownloadHandler: Handler contains jsonResponse array and error
-    /// - Returns: returns a UIImage object for the restaurant
+    /// - Returns: returns a UIImage object for the Media
     func fetchImageData(imageURLString: String, imageDownloadHandler: @escaping ((_ image: UIImage?) -> Void)) -> Request {
         //download image data using alamofire
         
         return Alamofire.request(imageURLString, method: .get).responseImage { (response) in
             if let image = response.result.value {
-                imageDownloadHandler(image)
                 self.cache(image, for: imageURLString)
+                imageDownloadHandler(image)
             } else {
                 imageDownloadHandler(nil)
             }
