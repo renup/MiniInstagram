@@ -10,6 +10,7 @@ target 'MiniInstagram' do
 	pod 'Alamofire'
 	pod 'AlamofireImage'
     	pod 'KeychainSwift'
+    	pod 'MBProgressHUD', '~> 1.0.0'
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
