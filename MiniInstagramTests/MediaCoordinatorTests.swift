@@ -25,11 +25,11 @@ class MediaCoordinatorTests: QuickSpec {
         describe("MediaCoordinator") {
             let navigationVC = UINavigationController()
             let mediaCoordinator = MediaCoordinator(navigationVC)
-            
+            var media: Media?
+
             describe("APICalls starts here") {
                 var response: [Media]?
-                var media: Media?                
-                
+
                 context("FetchMedia starts here") {
                   //beforeEach {
                     if let token = APIProcessor.shared.inquireToken() {
@@ -43,6 +43,7 @@ class MediaCoordinatorTests: QuickSpec {
                             for item: Media in response! {
                                 if item.mediaId == "1669903803288561092_6696627282" {
                                     media = item
+                                    break
                                 }
                             }
                         })
@@ -61,7 +62,27 @@ class MediaCoordinatorTests: QuickSpec {
                     
                 }// end of context
                 
-                
+                context("Get album contents") {
+                    var albumPicture: AlbumContent?
+                    if let album = media {
+                       let pictures = album.processAlbumContents()
+                        
+                        for pic: AlbumContent in pictures {
+                            if let urlStr = pic.imageURLStr {
+                                if urlStr == "https://scontent.cdninstagram.com/t51.2885-15/e35/p320x320/25007224_737507436445425_5299125074937249792_n.jpg" {
+                                    albumPicture = pic
+                                    break
+                                }
+                            }
+                        } //end of pictures enumerating for loop
+                    }// end of if let checking for media
+                    
+                    it("returns pictures inside of the given Media") {
+                        if let picture = albumPicture {
+                           expect(picture.imageURLStr) == "https://scontent.cdninstagram.com/t51.2885-15/e35/p320x320/25007224_737507436445425_5299125074937249792_n.jpg"
+                        }
+                    } //end of it statement
+                } //end of get album contents Context
             }
         }
         
