@@ -25,7 +25,9 @@ extension UIViewController {
     }
     
     class func instantiateUsingDefaultStoryboardIdWithStoryboardName(name: String) -> UIViewController {
-        print("defaultname: \(defaultNibName())")
+        #if DEBUG
+            print("defaultname: \(defaultNibName())")
+        #endif
         return instantiateControllerFromStoryboard(name: name, identifier: defaultNibName())
     }
     

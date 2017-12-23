@@ -21,7 +21,6 @@ class AlbumContentsViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("album nav vc = \(String(describing: self.navigationController))")
         if let navVC = self.navigationController {
             if navVC.viewControllers.count > 1 {
                 self.navigationController?.popViewController(animated: false)

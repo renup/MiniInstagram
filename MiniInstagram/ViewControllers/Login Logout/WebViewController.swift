@@ -46,20 +46,15 @@ class WebViewController: OAuthWebViewController {
     // todo renu - edit handling and dismiss webviewcontroller
     extension WebViewController: UIWebViewDelegate {
         func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-            print("BEFORE URL REQ  = \(request)")
+            #if DEBUG
+                print("BEFORE URL REQ  = \(request)")
+            #endif
             let url = request.url
-            //            if let url = request.url, url.scheme == "oauth-swift" {
-            //                print("got it here my TOKEN = \(request)")
-            // Call here AppDelegate.sharedInstance.applicationHandleOpenURL(url) if necessary ie. if AppDelegate not configured to handle URL scheme
-            
             let urlString = url?.absoluteString
             if (urlString?.hasPrefix("https://www.23andme.com/"))! {
                 OAuthSwift.handle(url: url!)
                 self.dismissWebViewController()
             }
-            // compare the url with your own custom provided one in `authorizeWithCallbackURL`
-            //                self.dismissWebViewController()
-            
             return true
         }
 }

@@ -21,7 +21,7 @@ struct Media {
         mediaId = json["id"].stringValue
         userLiked = json["user_has_liked"].boolValue
         let albumImage = json["images"]["low_resolution"]["url"].stringValue
-        #if debug
+        #if DEBUG
             print("mediaAlbum = \(mediaAlbum)")
             print("albumImage = \(albumImage)")
         #endif

@@ -83,7 +83,9 @@ class APIProcessor: NSObject {
             return
         }
         let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(token)"
-        //print("finalURLString = \(finalURLString)")
+        #if DEBUG
+            print("finalURLString = \(finalURLString)")
+        #endif
         Alamofire.request(finalURLString).validate().responseJSON(completionHandler: { (response) in
                 completionHandler(response.result.value)
         })
@@ -95,7 +97,7 @@ class APIProcessor: NSObject {
             return
         }
         let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(token)"
-        #if debug
+        #if DEBUG
             print("finalURLString = \(finalURLString)")
             print("token = \(String(describing: token))")
         #endif
@@ -119,17 +121,16 @@ extension APIProcessor {
                 //reset accessToken
                 KeychainSwift().delete(Constants.accessToken)
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
-                #if debug
+                #if DEBUG
                 print("response = \(String(describing: response))")
                 print("credential = \(String(describing: credential))")
                 print("parameters = \(String(describing: parameters))")
                 #endif
                     
                 completionHandler(parameters)
-//                self.getUserInfoInstagram(oauthswift)
             },
             failure: { error in
-                #if debug
+                #if DEBUG
                 print(error.description)
                 #endif
         })
