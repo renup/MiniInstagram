@@ -135,39 +135,6 @@ extension APIProcessor {
                 #endif
         })
     }
-    
-    
-    /// Gets user's information from Instagram
-    ///
-    /// - Parameter oauthswift: oauth swift object with needed strings for getting token
-    
-    //TODO: take out this method
-    func getUserInfoInstagram(_ oauthswift: OAuth2Swift) {
-        var url = ""
-        if let token = KeychainSwift().get(Constants.accessToken) {
-            url = "https://api.instagram.com/v1/users/self/?access_token=\(token)"
-            
-        } else {
-            url = "https://api.instagram.com/v1/users/self/?access_token=\(oauthswift.client.credential.oauthToken)"
-        }
-        
-        let parameters :Dictionary = Dictionary<String, AnyObject>()
-        let _ = oauthswift.client.get(
-            url, parameters: parameters,
-            success: {(response) in
-                let jsonDict = try? response.jsonObject()
-                #if debug
-                print("jsonDict UserInfo= \(jsonDict as Any)")
-                #endif
-
-        },
-            failure: { error in
-                #if debug
-                print(error)
-                #endif
-        }
-        )
-    }
 }
 
 extension APIProcessor {
