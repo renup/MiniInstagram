@@ -40,21 +40,29 @@ class APIProcessor: NSObject {
 
     let baseURLString = "https://api.instagram.com/v1/"
     
-    private func constructLikesURL(id: String) -> String {
-        return baseURLString + "media/" + id + "/likes?access_token=" + inquireToken()
+    private func constructLikesUnlikesURL(id: String) -> String? {
+        guard let token = inquireToken() else {
+            return nil
+        }
+       return baseURLString + "media/" + id + "/likes?access_token=" + token
     }
     
     func likeMedia(mediaId: String, completionHandler: @escaping completionHandler) {
-        let finalURLString = constructLikesURL(id: mediaId)
-        Alamofire.request(finalURLString, method: .post).validate().responseJSON(completionHandler: { (response) in
+        guard let finalUrlString = constructLikesUnlikesURL(id: mediaId) else {
+            completionHandler(nil)
+            return
+        }
+        Alamofire.request(finalUrlString, method: .post).validate().responseJSON(completionHandler: { (response) in
             completionHandler(response.result.value)
         })
     }
     
     func unlikeMedia(mediaId: String, completionHandler: @escaping completionHandler) {
-        let finalURLString = constructLikesURL(id: mediaId)
-
-        Alamofire.request(finalURLString, method: .delete).validate().responseJSON(completionHandler: { (response) in
+        guard let finalUrlString = constructLikesUnlikesURL(id: mediaId) else {
+            completionHandler(nil)
+            return
+        }
+        Alamofire.request(finalUrlString, method: .delete).validate().responseJSON(completionHandler: { (response) in
             completionHandler(response.result.value)
         })
     }
@@ -62,53 +70,41 @@ class APIProcessor: NSObject {
     /// Checks to see if oAuth token exists in keychain storage
     ///
     /// - Returns: returns the oAuth token or empty string
-    private func inquireToken() -> String {
-        if let token = KeychainSwift().get(Constants.accessToken) {
-            return token
-        } else {
-            return ""
-        }
+    func inquireToken() -> String? {
+        return KeychainSwift().get(Constants.accessToken)
     }
     
     /// Fetches media posted by current user
     ///
     /// - Parameter completionHandler: handles completion for network call
     func fetchMedia(completionHandler: @escaping completionHandler) {
-        let token = inquireToken()
-//        if token == "" then{
-//            return "NO_TOKEN_FOUND_ERROR"
-//        }
-//        else{
-//
-//        }
-        let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(String(describing: token))"
-        print("finalURLString = \(finalURLString)")
-
-        //
-        if let url = URL(string: finalURLString) {
-            Alamofire.request(url).validate().responseJSON(completionHandler: { (response) in
-                completionHandler(response.result.value)
-            })
+        guard let token = inquireToken() else {//if no token, don't make api call
+            completionHandler(nil)
+            return
         }
+        let finalURLString = baseURLString + "users/self/media/recent/?access_token=" + "\(token)"
+        //print("finalURLString = \(finalURLString)")
+        Alamofire.request(finalURLString).validate().responseJSON(completionHandler: { (response) in
+                completionHandler(response.result.value)
+        })
     }
     
     func fetchUserLikes(completionHandler: @escaping completionHandler) {
-        let token = inquireToken()
-
-        let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(String(describing: token))"
+        guard let token = inquireToken() else {//if no token, don't make api call
+            completionHandler(nil)
+            return
+        }
+        let finalURLString = baseURLString + "users/self/media/liked?access_token=" + "\(token)"
         #if debug
             print("finalURLString = \(finalURLString)")
             print("token = \(String(describing: token))")
         #endif
-        // here with no validate() in alamofire request, we will receive error in response too
-        if let url = URL(string: finalURLString) {
-            Alamofire.request(url).validate().responseJSON(completionHandler:{(response) in
+        
+        Alamofire.request(finalURLString).validate().responseJSON(completionHandler:{(response) in
                 completionHandler(response.result.value)
-            })
-        }
+        })
     }
 }
-
 
 
 // MARK: - This extension handle getting the oAuth Token
@@ -119,7 +115,7 @@ extension APIProcessor {
         
         let _ = oauthswift.authorize(
             withCallbackURL: URL(string: "https://www.23andme.com/")!, scope: "likes+basic+public_content", state:state,
-            success: {[unowned self] credential, response, parameters in
+            success: {credential, response, parameters in
                 //reset accessToken
                 KeychainSwift().delete(Constants.accessToken)
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
