@@ -48,7 +48,8 @@ class MediaViewController: UITableViewController {
         if let media = mediaAlbum {
             cell.configureCell(media: media[indexPath.row])
             if media[indexPath.row].userLiked == true && tableView.visibleCells.contains(cell) {
-                cell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
+                cell.likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
+//                cell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
             }
         }
         return cell
@@ -78,11 +79,17 @@ class MediaViewController: UITableViewController {
                 return
             }
             
-            if row.likeUnlikeButton.layer.backgroundColor == UIColor.red.cgColor {
+            if row.likeUnlikeButton.backgroundImage(for: .normal) == UIImage(named: "like") {
                 delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: false)
             } else {
                 delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: true)
             }
+            
+//            if row.likeUnlikeButton.layer.backgroundColor == UIColor.red.cgColor {
+//                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: false)
+//            } else {
+//                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: true)
+//            }
         }
     }
     
@@ -92,9 +99,12 @@ class MediaViewController: UITableViewController {
     
     func updateLikeUnlikeButtonAppearance(like: Bool) {
         if like {
-            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
+           
+           likeUnlikeButtonCell.likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
+//            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
         } else {
-            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.blue.cgColor
+            likeUnlikeButtonCell.likeUnlikeButton.setBackgroundImage(UIImage(named: "dislike"), for: .normal)
+//            likeUnlikeButtonCell.likeUnlikeButton.layer.backgroundColor = UIColor.blue.cgColor
         }
     }
     

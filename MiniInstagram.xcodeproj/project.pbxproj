@@ -30,6 +30,10 @@
 		D7591CA21FE93CAB00FDCAA5 /* XCTest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7591CA11FE93CAB00FDCAA5 /* XCTest+Extensions.swift */; };
 		D79B6A5C1FEEB0C20073B8F2 /* MediaResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A5A1FEEB0C20073B8F2 /* MediaResponse.json */; };
 		D79B6A5D1FEEB0C20073B8F2 /* LikesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A5B1FEEB0C20073B8F2 /* LikesResponse.json */; };
+		D79B6A721FEF63170073B8F2 /* dislike@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A6E1FEF63160073B8F2 /* dislike@3x.png */; };
+		D79B6A731FEF63170073B8F2 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A6F1FEF63160073B8F2 /* like@2x.png */; };
+		D79B6A741FEF63170073B8F2 /* dislike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A701FEF63160073B8F2 /* dislike@2x.png */; };
+		D79B6A751FEF63170073B8F2 /* like@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A711FEF63170073B8F2 /* like@3x.png */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -84,6 +88,10 @@
 		D7591CA11FE93CAB00FDCAA5 /* XCTest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Extensions.swift"; sourceTree = "<group>"; };
 		D79B6A5A1FEEB0C20073B8F2 /* MediaResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MediaResponse.json; sourceTree = "<group>"; };
 		D79B6A5B1FEEB0C20073B8F2 /* LikesResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LikesResponse.json; sourceTree = "<group>"; };
+		D79B6A6E1FEF63160073B8F2 /* dislike@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike@3x.png"; sourceTree = "<group>"; };
+		D79B6A6F1FEF63160073B8F2 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@2x.png"; sourceTree = "<group>"; };
+		D79B6A701FEF63160073B8F2 /* dislike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike@2x.png"; sourceTree = "<group>"; };
+		D79B6A711FEF63170073B8F2 /* like@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@3x.png"; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -203,6 +211,10 @@
 		D7591C961FE8AFCC00FDCAA5 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				D79B6A701FEF63160073B8F2 /* dislike@2x.png */,
+				D79B6A6E1FEF63160073B8F2 /* dislike@3x.png */,
+				D79B6A6F1FEF63160073B8F2 /* like@2x.png */,
+				D79B6A711FEF63170073B8F2 /* like@3x.png */,
 				D712F3281FE60BE10035DF8E /* placeHolder.png */,
 				D7591C911FE6D94E00FDCAA5 /* videoPlaceHolder.png */,
 			);
@@ -425,9 +437,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D79B6A741FEF63170073B8F2 /* dislike@2x.png in Resources */,
 				D7591C921FE6D94F00FDCAA5 /* videoPlaceHolder.png in Resources */,
+				D79B6A721FEF63170073B8F2 /* dislike@3x.png in Resources */,
+				D79B6A751FEF63170073B8F2 /* like@3x.png in Resources */,
 				D7AE90151FDD4B8F00836C2D /* LaunchScreen.storyboard in Resources */,
 				D712F3291FE60BE10035DF8E /* placeHolder.png in Resources */,
+				D79B6A731FEF63170073B8F2 /* like@2x.png in Resources */,
 				D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */,
 				D70563101FE31E490065417C /* Instagram.storyboard in Resources */,
 			);

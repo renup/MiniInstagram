@@ -29,13 +29,12 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M1W-3p-MTl">
                                             <rect key="frame" x="8" y="8" width="359" height="286"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-27-RJ6">
-                                            <rect key="frame" x="149" y="302" width="95" height="40"/>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkC-27-RJ6">
+                                            <rect key="frame" x="149" y="302" width="77" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="95" id="GaE-BH-MAY"/>
+                                                <constraint firstAttribute="width" constant="77" id="GaE-BH-MAY"/>
                                                 <constraint firstAttribute="height" constant="40" id="huR-ru-7Be"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
                                             <connections>
                                                 <action selector="likeUnlikeButtonClicked:" destination="fGi-Zs-jLG" eventType="touchUpInside" id="coB-tY-rJb"/>
                                             </connections>
