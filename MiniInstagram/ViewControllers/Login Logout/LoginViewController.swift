@@ -44,6 +44,8 @@ class LoginViewController: UIViewController {
     }
     
     func updateLoginLogoutButton() {
+        loginLogoutButton.titleLabel?.font =  UIFont.boldSystemFont(ofSize: 20)
+        
         if APIProcessor.shared.isUserLoggedIn() {
             loginLogoutButton.setTitle("Logout", for: .normal)
         } else {

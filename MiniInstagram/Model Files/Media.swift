@@ -20,15 +20,12 @@ struct Media {
         let json = mediaAlbum.1
         mediaId = json["id"].stringValue
         userLiked = json["user_has_liked"].boolValue
-        let albumImage = json["images"]["low_resolution"]["url"].stringValue
+        imageURLString = json["images"]["low_resolution"]["url"].stringValue
+        userName = json["user"]["full_name"].stringValue
+        carouselMedia = json["carousel_media"].arrayValue
         #if DEBUG
             print("mediaAlbum = \(mediaAlbum)")
-            print("albumImage = \(albumImage)")
         #endif
-        imageURLString = albumImage
-        let name = json["user"]["full_name"].stringValue
-        userName = name
-        carouselMedia = json["carousel_media"].arrayValue
     }
 }
 

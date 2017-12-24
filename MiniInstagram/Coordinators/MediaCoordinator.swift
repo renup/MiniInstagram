@@ -88,10 +88,8 @@ class MediaCoordinator: NSObject {
     private func getMedia() {
         showLoadingIndicator()
         requestMedia {[unowned self] (mediaObjects) in
-            DispatchQueue.main.async {
-                self.hideLoadingIndicator()
-                self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
-            }
+            self.hideLoadingIndicator()
+            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
         }
     }
 

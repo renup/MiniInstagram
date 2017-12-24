@@ -43,7 +43,6 @@ class WebViewController: OAuthWebViewController {
 
 
 // MARK: delegate
-    // todo renu - edit handling and dismiss webviewcontroller
     extension WebViewController: UIWebViewDelegate {
         func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
             #if DEBUG
