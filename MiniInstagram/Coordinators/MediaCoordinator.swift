@@ -58,7 +58,6 @@ class MediaCoordinator: NSObject {
                         navVC.setViewControllers([albumVC], animated: false)
                     }
                 }
-                
                 getLikes()
             } //end of else if
         }
@@ -75,7 +74,6 @@ class MediaCoordinator: NSObject {
     }
 
     func requestMedia(_ completionHandler: @escaping completionHandler) {
-//        DispatchQueue.global(qos: .utility).async {
             APIProcessor.shared.fetchMedia(completionHandler: {(response) in
                 if response != nil {
                     let json = JSON(response!)
@@ -85,17 +83,16 @@ class MediaCoordinator: NSObject {
                 }
                 completionHandler(response)
             })
-        //}
     }
     
     private func getMedia() {
-        //start loading animation
+        showLoadingIndicator()
         requestMedia {[unowned self] (mediaObjects) in
             DispatchQueue.main.async {
+                self.hideLoadingIndicator()
                 self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
             }
         }
-        //stop loading animation
     }
 
     func requestLikes(_ likesCompletionHandler: @escaping completionHandler) {
@@ -112,15 +109,15 @@ class MediaCoordinator: NSObject {
     }
     
     func getLikes() {
-        //show loading animation
+        showLoadingIndicator()
         requestLikes {[unowned self] (response) in
             DispatchQueue.main.async {
-                    self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+                   self.hideLoadingIndicator()
+                self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
                 }
             }
     }
 
-    
     private func processLikesResponse(response: Any) -> [AlbumContent] {
         let json = JSON(response)
             var likedPhotosURLStringArray = [AlbumContent]()
@@ -149,6 +146,7 @@ extension MediaCoordinator: MediaViewControllerDelegate {
     }
     func userClickedLikeUnlikeButton(media: Media, like: Bool) {
         if let id = media.mediaId {
+            showLoadingIndicator()
             if like {
                 APIProcessor.shared.likeMedia(mediaId: id, completionHandler: { [unowned self] (response) in
                     self.useLikeResponseToUpdateUI(response: response, like: like)
@@ -158,6 +156,7 @@ extension MediaCoordinator: MediaViewControllerDelegate {
                     self.useLikeResponseToUpdateUI(response: response, like: like)
                 })
             }
+            hideLoadingIndicator()
         }
     }
     
@@ -180,6 +179,7 @@ extension MediaCoordinator: MediaViewControllerDelegate {
     
     func userSelectedAnAlbum(media: Media) {
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
+            showLoadingIndicator()
             if albumContentViewController == nil {
                 guard let albumContentVC = AlbumContentsViewController.instantiateControllerFromStoryboard(name: "Instagram", identifier: "AlbumContentsViewController") as? AlbumContentsViewController else {
                     return
@@ -189,7 +189,25 @@ extension MediaCoordinator: MediaViewControllerDelegate {
             if let _ = media.carouselMedia {
                 albumContentViewController?.albumPictureURLs = processAlbumContents(album: media)
             }
+           
+           hideLoadingIndicator()
             navVC.pushViewController(albumContentViewController!, animated: true)
         }
+    }
+}
+
+extension MediaCoordinator {
+    fileprivate func showLoadingIndicator() {
+        guard let mainWindow = UIApplication.shared.keyWindow  else {
+            return
+        }
+        MBProgressHUD.showAdded(to: mainWindow, animated: true)
+    }
+    
+    fileprivate func hideLoadingIndicator() {
+        guard let mainWindow = UIApplication.shared.keyWindow  else {
+            return
+        }
+        MBProgressHUD.hide(for: mainWindow, animated: true)
     }
 }
