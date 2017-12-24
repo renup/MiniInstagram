@@ -34,6 +34,7 @@
 		D79B6A731FEF63170073B8F2 /* like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A6F1FEF63160073B8F2 /* like@2x.png */; };
 		D79B6A741FEF63170073B8F2 /* dislike@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A701FEF63160073B8F2 /* dislike@2x.png */; };
 		D79B6A751FEF63170073B8F2 /* like@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D79B6A711FEF63170073B8F2 /* like@3x.png */; };
+		D79B6A7E1FEF6CF10073B8F2 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D79B6A7C1FEF6CF10073B8F2 /* MBProgressHUD.m */; };
 		D7AE90081FDD4B8F00836C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */; };
 		D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7AE900E1FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld */; };
 		D7AE90121FDD4B8F00836C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7AE90111FDD4B8F00836C2D /* Assets.xcassets */; };
@@ -92,6 +93,9 @@
 		D79B6A6F1FEF63160073B8F2 /* like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@2x.png"; sourceTree = "<group>"; };
 		D79B6A701FEF63160073B8F2 /* dislike@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike@2x.png"; sourceTree = "<group>"; };
 		D79B6A711FEF63170073B8F2 /* like@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like@3x.png"; sourceTree = "<group>"; };
+		D79B6A7B1FEF6CF00073B8F2 /* MiniInstagram-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MiniInstagram-Bridging-Header.h"; sourceTree = "<group>"; };
+		D79B6A7C1FEF6CF10073B8F2 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D79B6A7D1FEF6CF10073B8F2 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D7AE90041FDD4B8F00836C2D /* MiniInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7AE900F1FDD4B8F00836C2D /* MiniInstagram.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MiniInstagram.xcdatamodel; sourceTree = "<group>"; };
@@ -231,6 +235,15 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		D79B6A7A1FEF6CBE0073B8F2 /* ThirdParty Library */ = {
+			isa = PBXGroup;
+			children = (
+				D79B6A7D1FEF6CF10073B8F2 /* MBProgressHUD.h */,
+				D79B6A7C1FEF6CF10073B8F2 /* MBProgressHUD.m */,
+			);
+			path = "ThirdParty Library";
+			sourceTree = "<group>";
+		};
 		D7AE8FFB1FDD4B8E00836C2D = {
 			isa = PBXGroup;
 			children = (
@@ -257,10 +270,12 @@
 			isa = PBXGroup;
 			children = (
 				D7AE90071FDD4B8F00836C2D /* AppDelegate.swift */,
+				D79B6A7B1FEF6CF00073B8F2 /* MiniInstagram-Bridging-Header.h */,
 				D70563091FE1F2EA0065417C /* Helper Classes */,
 				D70562FB1FE0B6C20065417C /* Coordinators */,
 				D70DAE811FE334C500243783 /* Model Files */,
 				D7AE903C1FDD515F00836C2D /* ViewControllers */,
+				D79B6A7A1FEF6CBE0073B8F2 /* ThirdParty Library */,
 				D7591C961FE8AFCC00FDCAA5 /* Supporting files */,
 				D7AE90111FDD4B8F00836C2D /* Assets.xcassets */,
 				D7AE90161FDD4B8F00836C2D /* Info.plist */,
@@ -398,6 +413,7 @@
 				TargetAttributes = {
 					D7AE90031FDD4B8E00836C2D = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					D7AE901A1FDD4B8F00836C2D = {
@@ -652,6 +668,7 @@
 				D70563061FE0C8680065417C /* MediaCoordinator.swift in Sources */,
 				D7AE90101FDD4B8F00836C2D /* MiniInstagram.xcdatamodeld in Sources */,
 				D7AE903E1FDD518200836C2D /* WebViewController.swift in Sources */,
+				D79B6A7E1FEF6CF10073B8F2 /* MBProgressHUD.m in Sources */,
 				D7591C951FE6DE9B00FDCAA5 /* PictureCell.swift in Sources */,
 				D712F32B1FE62DBE0035DF8E /* AlbumContentsViewController.swift in Sources */,
 				D70563081FE0D32A0065417C /* Constants.swift in Sources */,
@@ -816,12 +833,15 @@
 			baseConfigurationReference = 588B8DBBAD06F7F108CBA551 /* Pods-MiniInstagram.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F9SPFQ3WCK;
 				INFOPLIST_FILE = MiniInstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cocoateam.MiniInstagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MiniInstagram/ThirdParty Library/MiniInstagram-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -832,12 +852,14 @@
 			baseConfigurationReference = DB5CA32CFC3B369EED93824B /* Pods-MiniInstagram.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F9SPFQ3WCK;
 				INFOPLIST_FILE = MiniInstagram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cocoateam.MiniInstagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MiniInstagram/ThirdParty Library/MiniInstagram-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
