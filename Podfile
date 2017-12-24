@@ -8,12 +8,12 @@ target 'MiniInstagram' do
 	pod 'OAuthSwift'
 	pod 'Alamofire'
 	pod 'AlamofireImage'
-    pod 'KeychainSwift'
-    pod 'MBProgressHUD', '~> 1.0.0'
+        pod 'KeychainSwift'
 
   target 'MiniInstagramTests' do
     inherit! :search_paths
-	    pod 'Quick'
+	
+	pod 'Quick'
     	pod 'Nimble'
     	pod 'Mockingjay' 
 
