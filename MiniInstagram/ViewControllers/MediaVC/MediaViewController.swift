@@ -15,7 +15,7 @@ protocol MediaViewControllerDelegate: class {
 }
 
 class MediaViewController: UITableViewController {
-    var mediaAlbum: [Media]? {
+    var mediaArr: [Media]? {
         didSet {
             tableView.reloadData()
             showMediaAbsentMessage()
@@ -30,35 +30,31 @@ class MediaViewController: UITableViewController {
     lazy var likeUnlikeButtonCell = MediaCell()
     
     private func showMediaAbsentMessage() {
-        if mediaAlbum == nil || (mediaAlbum?.count)! < 1 {
+        if mediaArr == nil || (mediaArr?.count)! < 1 {
             self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in or you have internet connectivity")
         }
     }
     
     //MARK: dataSource methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let media = mediaAlbum {
-            return media.count
+        if let mediaArray = mediaArr {
+            return mediaArray.count
         }
         return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
-        cell.likeUnlikeButton.setBackgroundImage(UIImage(named: "dislike"), for: .normal)
 
-        if let media = mediaAlbum {
-            cell.configureCell(media: media[indexPath.row])
-            if media[indexPath.row].userLiked == true {
-                cell.likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
-            }
+        if let mediaArray = mediaArr {
+            cell.configureCell(media: mediaArray[indexPath.row])
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let media = mediaAlbum {
-            delegate?.userSelectedAnAlbum(media: media[indexPath.row])
+        if let mediaArray = mediaArr {
+            delegate?.userSelectedAnAlbum(media: mediaArray[indexPath.row])
         }
     }
     
@@ -76,14 +72,21 @@ class MediaViewController: UITableViewController {
         if let row = cell {
             likeUnlikeButtonCell = row
             let indexPath = tableView.indexPath(for: row)
-            guard let album = mediaAlbum, let indxPath = indexPath else {
+            guard let mediaArray = mediaArr, let indxPath = indexPath else {
                 return
             }
             
-            if row.likeUnlikeButton.backgroundImage(for: .normal) == UIImage(named: "like") {
-                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: false)
-            } else {
-                delegate?.userClickedLikeUnlikeButton(media: album[(indxPath.row)], like: true)
+            var album = mediaArray[indxPath.row]
+            guard let liked = album.userLiked else {
+                return
+            }
+            
+            if liked { //unlike the photo
+                mediaArr![indxPath.row].userLiked = false
+                delegate?.userClickedLikeUnlikeButton(media: mediaArray[(indxPath.row)], like: false)
+            } else { //like the photo
+                mediaArr![indxPath.row].userLiked = true
+                delegate?.userClickedLikeUnlikeButton(media: mediaArray[(indxPath.row)], like: true)
             }
         }
     }
@@ -94,7 +97,7 @@ class MediaViewController: UITableViewController {
     
     func updateLikeUnlikeButtonAppearance(like: Bool) {
         if like {
-           likeUnlikeButtonCell.likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
+            likeUnlikeButtonCell.likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
         } else {
             likeUnlikeButtonCell.likeUnlikeButton.setBackgroundImage(UIImage(named: "dislike"), for: .normal)
         }

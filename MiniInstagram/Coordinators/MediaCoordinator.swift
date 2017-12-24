@@ -89,7 +89,7 @@ class MediaCoordinator: NSObject {
         showLoadingIndicator()
         requestMedia {[unowned self] (mediaObjects) in
             self.hideLoadingIndicator()
-            self.mediaViewController?.mediaAlbum = mediaObjects as? [Media]
+            self.mediaViewController?.mediaArr = mediaObjects as? [Media]
         }
     }
 

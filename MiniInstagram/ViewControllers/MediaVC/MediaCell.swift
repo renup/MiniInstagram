@@ -15,8 +15,15 @@ class MediaCell: UITableViewCell {
     
     @IBOutlet weak var mediaImageView: UIImageView!
     var imageHelper: ImageHelper { return .shared }
+    var mediaLiked: Bool?
 
     func configureCell(media: Media) {
+        if media.userLiked == true {
+            likeUnlikeButton.setBackgroundImage(UIImage(named: "like"), for: .normal)
+        }else{
+            likeUnlikeButton.setBackgroundImage(UIImage(named: "dislike"), for: .normal)
+        }
+        
         if let urlStr = media.imageURLString {
             setPlaceholderImage(urlString: urlStr)
             imageHelper.reset()

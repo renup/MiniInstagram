@@ -166,9 +166,9 @@ extension APIProcessor {
                 KeychainSwift().delete(Constants.accessToken)
                 KeychainSwift().set("\(oauthswift.client.credential.oauthToken)", forKey: Constants.accessToken, withAccess: .accessibleWhenUnlocked)
                 #if DEBUG
-                print("response = \(String(describing: response))")
-                print("credential = \(String(describing: credential))")
-                print("parameters = \(String(describing: parameters))")
+                    print("response = \(String(describing: response))")
+                    print("credential = \(String(describing: credential))")
+                    print("parameters = \(String(describing: parameters))")
                 #endif
                     
                 completionHandler(parameters)
