@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        UITabBarItem.appearance().setTitleTextAttributes(
+                [NSAttributedStringKey.font: UIFont(name: "Didot", size: 20)!],
+                for: .normal)
         
         if let navVC = window?.rootViewController as? UINavigationController {
             let appCoordinator = AppCoordinator(navVC)
