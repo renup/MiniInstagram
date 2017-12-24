@@ -29,10 +29,7 @@ class AlbumContentsViewController: UITableViewController {
     }
     
     private func showMediaAbsentMessage() {
-        guard let pictures = albumPictureURLs else {
-            return
-        }
-        if pictures.count < 1 {
+        if albumPictureURLs == nil || (albumPictureURLs?.count)! < 1 {
             self.showErrorMessageAlert(title: "No Likes", message: "Something went wrong. Please Make sure you are logged in, have internet connectivity or You've liked some media")
         }
     }

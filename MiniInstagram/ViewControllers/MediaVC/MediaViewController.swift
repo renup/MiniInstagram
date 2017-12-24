@@ -30,7 +30,7 @@ class MediaViewController: UITableViewController {
     lazy var likeUnlikeButtonCell = MediaCell()
     
     private func showMediaAbsentMessage() {
-        if mediaAlbum == nil {
+        if mediaAlbum == nil || (mediaAlbum?.count)! < 1 {
             self.showErrorMessageAlert(title: "No Media", message: "Something went wrong. Please Make sure you are logged in or you have internet connectivity")
         }
     }

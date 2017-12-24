@@ -115,10 +115,11 @@ class MediaCoordinator: NSObject {
         //show loading animation
         requestLikes {[unowned self] (response) in
             DispatchQueue.main.async {
-                self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+                    self.albumContentViewController?.albumPictureURLs = response as? [AlbumContent]
+                }
             }
-        }
     }
+
     
     private func processLikesResponse(response: Any) -> [AlbumContent] {
         let json = JSON(response)
