@@ -47,7 +47,7 @@ class MediaViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         if let media = mediaAlbum {
             cell.configureCell(media: media[indexPath.row])
-            if media[indexPath.row].userLiked == true {
+            if media[indexPath.row].userLiked == true && tableView.visibleCells.contains(cell) {
                 cell.likeUnlikeButton.layer.backgroundColor = UIColor.red.cgColor
             }
         }
