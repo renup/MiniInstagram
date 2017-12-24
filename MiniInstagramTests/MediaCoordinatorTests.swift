@@ -65,7 +65,7 @@ class MediaCoordinatorTests: QuickSpec {
                 context("Get album contents") {
                     var albumPicture: AlbumContent?
                     if let album = media {
-                       let pictures = album.processAlbumContents()
+                        let pictures = mediaCoordinator.processAlbumContents(album: album)
                         
                         for pic: AlbumContent in pictures {
                             if let urlStr = pic.imageURLStr {

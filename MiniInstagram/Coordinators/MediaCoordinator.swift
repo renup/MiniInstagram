@@ -128,7 +128,7 @@ class MediaCoordinator: NSObject {
             for item in array {
                 var likedPhotos = [AlbumContent]()
                 if let _ = item.carouselMedia {
-                    likedPhotos = item.processAlbumContents()
+                    likedPhotos = processAlbumContents(album: item)
                 }
                 likedPhotosURLStringArray.append(contentsOf: likedPhotos)
             }
@@ -161,6 +161,23 @@ extension MediaCoordinator: MediaViewControllerDelegate {
         }
     }
     
+    func processAlbumContents(album: Media) -> [AlbumContent] {
+        var albumImages = [AlbumContent]()
+        if let imagesArray = album.carouselMedia {
+            for subJson in imagesArray {
+                var contentString = ""
+                if subJson["images"].dictionary != nil {
+                    contentString = subJson["images"]["low_resolution"]["url"].stringValue
+                } else if subJson["videos"].dictionary != nil {
+                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
+                }
+                let albumContent = AlbumContent(urlString: contentString)
+                albumImages.append(albumContent)
+            } // end of for loop
+        } //end of if let
+        return albumImages
+    }
+    
     func userSelectedAnAlbum(media: Media) {
         if let navVC = tabViewController?.viewControllers![1] as? UINavigationController {
             if albumContentViewController == nil {
@@ -170,7 +187,7 @@ extension MediaCoordinator: MediaViewControllerDelegate {
                 albumContentViewController = albumContentVC
             }
             if let _ = media.carouselMedia {
-                albumContentViewController?.albumPictureURLs = media.processAlbumContents()
+                albumContentViewController?.albumPictureURLs = processAlbumContents(album: media)
             }
             navVC.pushViewController(albumContentViewController!, animated: true)
         }

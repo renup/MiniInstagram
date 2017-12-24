@@ -30,26 +30,6 @@ struct Media {
         userName = name
         carouselMedia = json["carousel_media"].arrayValue
     }
-    
-    /// Gets Album content array
-    ///
-    /// - Returns: Extracts album content array
-    func processAlbumContents() -> [AlbumContent] {
-        var albumImages = [AlbumContent]()
-        if let imagesArray = carouselMedia {
-            for subJson in imagesArray {
-                var contentString = ""
-                if subJson["images"].dictionary != nil {
-                    contentString = subJson["images"]["low_resolution"]["url"].stringValue
-                } else if subJson["videos"].dictionary != nil {
-                    contentString = subJson["videos"]["low_resolution"]["url"].stringValue
-                }
-                let albumContent = AlbumContent(urlString: contentString)
-                albumImages.append(albumContent)
-            } // end of for loop
-        } //end of if let
-        return albumImages
-    }
 }
 
 struct AlbumContent {
