@@ -64,7 +64,22 @@ class LoginLogoutCoordinator: NSObject, LoginViewControllerDelegate {
     
     private func logOutButtonPressed() {
         DispatchQueue.main.async {[unowned self] in
+            // First we should delete the oAuth token from keychain
             KeychainSwift().delete(Constants.accessToken)
+            
+            //Also we should remove the cookie from the browser so that user is asked to login again
+            let cookieJar : HTTPCookieStorage = HTTPCookieStorage.shared
+            for cookie in cookieJar.cookies! as [HTTPCookie]{
+                NSLog("cookie.domain = %@", cookie.domain)
+                
+                if cookie.domain == "www.instagram.com" ||
+                    cookie.domain == "api.instagram.com"{
+                    
+                    cookieJar.deleteCookie(cookie)
+                }
+            }
+
+            
             self.loginLogoutVC?.updateLoginLogoutButton()
         }
     }
